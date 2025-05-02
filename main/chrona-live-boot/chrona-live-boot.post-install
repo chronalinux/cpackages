@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# Create the 'chrona-live' group (continue even if the command fails)
+addgroup -S chrona-live || true
+
+# Create the 'chrona-live' user with basic settings
+adduser -S -D -h /home/chrona-live -s /bin/sh -G chrona-live -g "Chrona Live User" chrona-live
+echo "chrona-live:chrona" | chpasswd
+
+# Add the user to additional groups; attempt to create each group first
+# tty group
+addgroup tty || true
+addgroup chrona-live tty
+
+# plugdev group
+addgroup plugdev || true
+addgroup chrona-live plugdev
+
+# audio group
+addgroup audio || true
+addgroup chrona-live audio
+
+# video group
+addgroup video || true
+addgroup chrona-live video
+
+# input group
+addgroup input || true
+addgroup chrona-live input
+
+addgroup wheel || true
+addgroup chrona-live wheel
+
+
+# Configure udev rules for tty subsystem
+mkdir -p /etc/udev/rules.d/
+echo "SUBSYSTEM==\"tty\", KERNEL==\"tty[0-9]*\", GROUP=\"tty\", MODE=\"0660\"" > /etc/udev/rules.d/99-tty.rules
+
+# Create messagebus group and user for D-Bus
+addgroup -S messagebus 2>/dev/null
+adduser -S -D -H -h /dev/null -s /sbin/nologin -G messagebus -g messagebus messagebus 2>/dev/null
+sed -i '$ a chrona-live ALL=(ALL:ALL) ALL' /etc/sudoers
+mkdir -p /home/chrona-live/Desktop
+cp /usr/share/applications/cinstaller.desktop /home/chrona-live/Desktop/cinstaller.desktop
+addgroup -S dhcpcd 2>/dev/null
+adduser -S -D -H -h /var/lib/dhcpcd -s /sbin/nologin -G dhcpcd -g dhcpcd dhcpcd 2>/dev/null
+
+
+
+# Confirm user setup
+echo "chrona-live user created and added to plugdev, tty, audio, video, and input groups."
+
+exit 0

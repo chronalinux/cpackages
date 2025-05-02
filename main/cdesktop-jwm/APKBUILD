@@ -1,0 +1,84 @@
+# Maintainer: Şahan Yılmaz <sahan@chronalinux.org.tr>
+pkgname=cdesktop-jwm
+pkgver=1.4
+pkgrel=0
+pkgdesc="Minimal JWM Masaüstü Ortamı"
+url="https://chronalinux.net.tr"
+arch="all"
+license="MIT"
+depends="
+    jwm
+    spacefm
+    xorg-server
+    xf86-input-libinput
+    xinit
+    eudev
+    volumeicon
+    alsa-utils
+    alsaconf
+    mesa-dri-gallium
+    cnetwork
+    netsurf
+    st
+    font-dejavu
+    adwaita-icon-theme
+    dbus
+    dbus-x11
+    tint2
+    xterm
+    mesa-gles
+"
+
+# Ek yapılandırma dosyaları eklendi
+source="
+    jwmrc
+    mainmenu.svg
+    tint2.conf
+    JWMMenu
+    chrona-startup.sh
+    cdesktop-wallpaper
+    chrona25-04.png
+"
+
+build() {
+      return 0
+}
+
+package() {
+    mkdir -p "$pkgdir"/etc/skel
+    mkdir -p "$pkgdir"/etc/skel/.config/tint2
+    mkdir -p "$pkgdir"/etc/skel/.config/cdesktop
+    mkdir -p "$pkgdir"/usr/share/cdesktop/
+    mkdir -p "$pkgdir"/usr/share/icons/chrona/
+    mkdir -p "$pkgdir"/usr/share/applications/
+    mkdir -p "$pkgdir"/usr/share/cdesktop/wallpapers
+    install -Dm644 chrona25-04.png "$pkgdir"/usr/share/cdesktop/wallpapers/chrona25-04.png
+    install -Dm644 mainmenu.svg "$pkgdir"/usr/share/icons/chrona/mainmenu.svg
+    install -Dm644 jwmrc "$pkgdir"/etc/skel/.jwmrc
+    install -Dm644 tint2.conf "$pkgdir"/etc/skel/.config/tint2/tint2rc
+    install -Dm755 JWMMenu "$pkgdir"/usr/share/cdesktop/JWMMenu
+    install -Dm755 chrona-startup.sh "$pkgdir"/etc/skel/.config/cdesktop/cdesktop-startup.sh
+    install -Dm755 cdesktop-wallpaper "$pkgdir"/etc/skel/.config/cdesktop/cdesktop-wallpaper
+	cat >"$pkgdir"/usr/share/applications/cdesktop.desktop<<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=JWMMenu
+Comment=Main Menu Desktop Application
+Exec=
+Icon=/usr/share/icons/chrona/mainmenu.svg
+Terminal=false
+Categories=Utility;
+EOF
+
+}
+
+sha512sums="
+6f4e4f96d2aac9f7b43e8f0318caa0d0628529c4ba94f1e53045c808703c7296c8426f2d7b4632a9e67d05ea43c3dca4c5aa447a22fd0d87ee32f4be5c5f1001  JWMMenu
+96af1922b0481fa6aabdd16cd82047d65348fd6801bea5f2705e70e4032c04f9b936675c0fa6aee0480934bad20fe0fc9295a67f80d2a529e6f5625d40147da8  chrona-startup.sh
+61af50916ecc2981ec455df7c85eb021d82ae336f1f0e91e79a47d28ada7d5824ae81167e99f51e23b4e54785480c8205cc2e612c055db932d46a3ab7b461f08  jwmrc
+a4cf9ec771d6b45f44f5281ebe4c16d10c72dc3ebd08edc3c0bb1932762ea56028285bb2e5130df7fbdeba1d4085b9486600f102359c803925908e2ea98306c1  mainmenu.svg
+1d08e62d251fdd563de308c5e7e3992a267cea5caffcb674ec1b1ad9d91353223655745c278cc6359683914d3c65909dcde9b461efcacadff7ed4a9f600d3ddb  tint2.conf
+8bbf2565d4e6c2f743a23e14331db0e7e3ec22e51281baf7d056eac53425719850d17c5ac4f32d785bd685e7b9f93b60bb79b592a2c0714af5aaa74af2b0a942  chrona25-04.png
+6e18cfe8179dfae345f2e11988728701610a61205dd086f483b9dba1264f141d5f0e4f8933bce576fadf667cef17ce38d8b29b296b9a4c3f95aa2886d13d7e7f  cdesktop-wallpaper
+"

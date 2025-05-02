@@ -1,0 +1,71 @@
+# Maintainer: Şahan Yılmaz <sahan@chronalinux.org.tr>
+pkgname=cdesktop-icewm
+pkgver=1.4
+pkgrel=5
+pkgdesc="Minimal Icewm Masaüstü Ortamı"
+url="https://chronalinux.net.tr"
+arch="all"
+license="MIT"
+depends="
+    icewm
+    pcmanfm
+    xorg-server
+    xf86-input-libinput
+    xinit
+    eudev
+    volumeicon
+    alsa-utils
+    mesa-dri-gallium
+    cnetwork
+    dillo
+    font-dejavu
+    adwaita-icon-theme
+    xterm
+    mesa-gles
+    abiword
+    gnumeric
+    mupdf
+    claws-mail
+    mpv
+    viewnior
+"
+source="
+    mainmenu.svg
+    preferences
+    startup
+    cdesktop-wallpaper
+    chrona25-04.png
+    cicewm.tar.gz
+    theme
+"
+
+build() {
+      return 0
+}
+
+package() {
+    mkdir -p "$pkgdir"/etc/skel/
+    mkdir -p "$pkgdir"/etc/skel/.config/cdesktop/
+    mkdir -p "$pkgdir"/etc/skel/.config/icewm/
+    mkdir -p "$pkgdir"/usr/share/cdesktop/
+    mkdir -p "$pkgdir"/usr/share/icons/chrona/
+    mkdir -p "$pkgdir"/usr/share/cdesktop/wallpapers
+    mkdir -p "$pkgdir"/usr/share/icons/chrona/
+    mkdir -p "$pkgdir"/usr/share/icewm/themes/
+    install -Dm755 startup "$pkgdir"/etc/skel/.config/icewm/startup
+    install -Dm755 theme "$pkgdir"/etc/skel/.config/icewm/theme
+    install -Dm755 preferences "$pkgdir"/etc/skel/.config/icewm/preferences
+    install -Dm644 chrona25-04.png "$pkgdir"/usr/share/cdesktop/wallpapers/chrona25-04.png
+    tar -xzf cicewm.tar.gz -C "$pkgdir"/usr/share/icewm/themes/
+}
+
+sha512sums="
+787bd58efc431b28c48858e71833949801e013bf2aada1c205d410737d973964433e9f00251660f510e6fc5621463ca5f9f2a2194180be42083252be1b5538dd  startup
+a4cf9ec771d6b45f44f5281ebe4c16d10c72dc3ebd08edc3c0bb1932762ea56028285bb2e5130df7fbdeba1d4085b9486600f102359c803925908e2ea98306c1  mainmenu.svg
+8bbf2565d4e6c2f743a23e14331db0e7e3ec22e51281baf7d056eac53425719850d17c5ac4f32d785bd685e7b9f93b60bb79b592a2c0714af5aaa74af2b0a942  chrona25-04.png
+6e18cfe8179dfae345f2e11988728701610a61205dd086f483b9dba1264f141d5f0e4f8933bce576fadf667cef17ce38d8b29b296b9a4c3f95aa2886d13d7e7f  cdesktop-wallpaper
+458cabbc95b027de77ab5b3d0f4a84c3916340c76558426ed752e652151e3f4302475789bcf029add6c6455b361be71fa3792ffd8b54beb8066a14bb54a46342  preferences
+ee30538ddf3125f2bc4728c6fb6a15c6f19de5f74454a2f2daa411f4013522be783b2e8ae95077e871d904f6a56a399e65065dc83135d2094d916e484afbc6b4  theme
+4146909bdf92ef5284e88c4f7f54d07ad36abeda0f1a9c4375049f04fbafb996aa76c45f292f06d43d2516e647040e343645ef676bca003248e0177adf970285  cicewm.tar.gz
+"
+

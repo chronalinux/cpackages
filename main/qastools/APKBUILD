@@ -1,0 +1,39 @@
+# Contributor: A. Wilcox <awilfox@adelielinux.org>
+# Maintainer: A. Wilcox <awilfox@adelielinux.org>
+pkgname=qastools
+pkgver=0.23.0
+pkgrel=0
+pkgdesc="ALSA mixer and utilities for Qt"
+url="https://gitlab.com/sebholt/qastools"
+arch="all"
+license="MIT"
+depends="bash"
+makedepends="alsa-lib-dev cmake eudev-dev qt5-qtbase-dev qt5-qtsvg-dev
+	qt5-qttools-dev"
+subpackages="$pkgname-doc $pkgname-lang"
+langdir="/usr/share/qastools/l10n"
+source="https://gitlab.com/sebholt/qastools/-/archive/v$pkgver/qastools-v$pkgver.tar.bz2"
+builddir="$srcdir/$pkgname-v$pkgver"
+
+build() {
+	if [ "$CBUILD" != "$CHOST" ]; then
+		CMAKE_CROSSOPTS="-DCMAKE_SYSTEM_NAME=Linux -DCMAKE_HOST_SYSTEM_NAME=Linux"
+	fi
+	cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_SHARED_LIBS=True \
+		-DCMAKE_BUILD_TYPE=RelWithDebugInfo \
+		-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+		${CMAKE_CROSSOPTS} .
+	make
+}
+
+check() {
+	CTEST_OUTPUT_ON_FAILURE=TRUE ctest
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="543e2f6407ba36f7cb0ce811ee1ceac14652960c58636671fabeaca25d154db263b654d07795ec2a81232b1e177469cbb45617099d40af47d6ab1148443582fb  qastools-v0.23.0.tar.bz2"

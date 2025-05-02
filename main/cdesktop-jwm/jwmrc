@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<JWM>
+  <IconPath>/usr/share/icons/hicolor/256x256/apps</IconPath>
+  <IconPath>/usr/share/icons/hicolor/256x256/mimetypes</IconPath>
+  <IconPath>/usr/share/icons/hicolor/32x32/actions</IconPath>
+  <IconPath>/usr/share/icons/hicolor/32x32/apps</IconPath>
+  <IconPath>/usr/share/icons/hicolor/32x32/categories</IconPath>
+  <IconPath>/usr/share/icons/hicolor/32x32/devices</IconPath>
+  <IconPath>/usr/share/icons/hicolor/32x32/emblems</IconPath>
+  <IconPath>/usr/share/icons/hicolor/32x32/mimetypes</IconPath>
+  <IconPath>/usr/share/icons/hicolor/32x32/status</IconPath>
+  <IconPath>/usr/share/icons/hicolor/512x512/apps</IconPath>
+  <IconPath>/usr/share/icons/hicolor/512x512/mimetypes</IconPath>
+  <IconPath>/usr/share/icons/hicolor/scalable/actions</IconPath>
+  <IconPath>/usr/share/icons/hicolor/scalable/apps</IconPath>
+  <IconPath>/usr/share/icons/hicolor/scalable/categories</IconPath>
+  <IconPath>/usr/share/icons/hicolor/scalable/devices</IconPath>
+  <IconPath>/usr/share/icons/hicolor/scalable/emblems</IconPath>
+  <IconPath>/usr/share/icons/hicolor/scalable/mimetypes</IconPath>
+  <IconPath>/usr/share/icons/hicolor/scalable/places</IconPath>
+  <IconPath>/usr/share/icons/hicolor/scalable/status</IconPath>
+  <IconPath>/usr/share/icons</IconPath>
+
+  <RootMenu label="Menu">
+    <Program icon="terminal.svg" label="Terminal">xterm</Program>
+    <Restart label="Restart JWM" icon="reload"/>
+    <Exit label="Çıkış" icon="exit"/>
+  </RootMenu>
+
+  <Desktops width="0"/>
+  <Group>
+    <Option>nolist</Option>
+  </Group>
+
+  <StartupCommand>sh ~/.config/cdesktop/cdesktop-startup.sh</StartupCommand>
+
+  <WindowStyle>
+    <Font>sans-12</Font>
+    <Width>4</Width>
+    <Height>24</Height>
+  </WindowStyle>
+
+<Key mask="A" key="F3">root:1</Key>
+  
+</JWM>

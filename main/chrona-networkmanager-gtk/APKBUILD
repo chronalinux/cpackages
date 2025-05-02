@@ -1,0 +1,33 @@
+# Maintainer: Şahan Yılmaz <sahan@chrona.org.tr>
+pkgname=chrona-networkmanager-gtk
+pkgver=1.0
+pkgrel=2
+pkgdesc="NetworkMamager GTK for Chrona Linux"
+url="https://chrona.org.tr"
+arch="all"
+license="MIT"
+depends="networkmanager networkmanager-wifi network-manager-applet wpa_supplicant"
+replaces="networkmanager"
+package() {
+    mkdir -p "$pkgdir"
+    mkdir -p "$pkgdir"/etc/NetworkManager
+    mkdir -p "$pkgdir"/etc/NetworkManager/conf.d
+    cat <<EOF > "$pkgdir"/etc/NetworkManager/NetworkManager.conf
+[main] 
+dhcp=internal
+plugins=ifupdown,keyfile
+
+[ifupdown]
+managed=true
+
+[device]
+wifi.scan-rand-mac-address=yes
+wifi.backend=wpa_supplicant
+EOF
+
+    cat <<EOF > "$pkgdir"/etc/NetworkManager/conf.d/any-user.conf
+[main]
+auth-polkit=false
+EOF
+
+}

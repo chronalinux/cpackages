@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+# Kullanıcıyı ve ev dizinini sil (eğer varsa)
+if grep -q "^chrona-live:" /etc/passwd; then
+    deluser --remove-home chrona-live >/dev/null
+fi
+
+# Grubu sil (eğer varsa)
+if grep -q "^chrona-live:" /etc/group; then
+    delgroup chrona-live >/dev/null
+fi
+

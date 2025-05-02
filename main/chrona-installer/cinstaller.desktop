@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Chrona Installer
+Comment=Chrona Linux Installer
+GenericName=Chrona Linux Installer
+Exec=xterm -fullscreen -e  sudo -s chronainstaller
+Icon=/usr/share/chrona/chrona-installer64.png
+Type=Application
+StartupNotify=false
+StartupWMClass=chronainstaller
+Categories=System;Settings;
+MimeType=application/x-chrona-workspace
+Keywords=chronainstaller;manager;chrona

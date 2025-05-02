@@ -1,0 +1,23 @@
+# Maintainer: Şahan Yılmaz <sahan@chrona.org.tr>
+pkgname=chrona-live-boot
+pkgver=1.2
+pkgrel=0
+pkgdesc="Live Packages for Chrona Linux"
+url="https://chronalinux.org.tr"
+arch="all"
+license="MIT"
+install="$pkgname.pre-deinstall $pkgname.post-install"
+subpackages="chrona-live-boot-openrc:openrc"
+depends="chrona-live-boot-openrc"
+package() {
+	mkdir -p "$pkgdir"
+}
+openrc() {
+        replaces="openrc"
+        mkdir -p "$subpkgdir"
+        source="clive.initd"
+        install -Dm755 clive.initd "$subpkgdir"/etc/init.d/clive
+        sha512sums="f83455ea6a0ca6de196199fc449a2a22e182e0c8e1a3726ed3da2c7153cff8d1919f95980fd3df0f82996b32384e0a779dd196fdca7d0bdc7c3f9f402496d39c  clive.initd
+"
+}
+

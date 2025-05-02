@@ -1,0 +1,2 @@
+#!/bin/sh
+rm -rf /usr/share/applications/cinstaller.desktop

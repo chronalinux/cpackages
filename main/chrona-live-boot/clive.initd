@@ -1,0 +1,148 @@
+#!/sbin/openrc-run
+
+depend() {
+    before networkmanager
+}
+
+# Check if a specific package is installed
+check_pkg() {
+    # -e option lists only installed packages
+    apk info -e "$1" >/dev/null 2>&1
+    return $?
+}
+
+# Configure .xinitrc for cdesktop (icewm-session)
+configure_xinitrc_for_cdesktop_icewm() {
+    XINITRC_PATH="/home/chrona-live/.xinitrc"
+
+    # Skip if .xinitrc exists and already configured for icewm-session
+    if [ -f "$XINITRC_PATH" ] && grep -q "exec icewm-session" "$XINITRC_PATH"; then
+        return 0
+    fi
+
+    # Create .xinitrc with icewm-session configuration
+    cat > "$XINITRC_PATH" <<EOF
+#!/bin/sh
+exec icewm-session
+EOF
+
+    # Set ownership and permissions
+    chown chrona-live:chrona-live "$XINITRC_PATH"
+    chmod 755 "$XINITRC_PATH"
+}
+
+
+configure_xinitrc_for_cdesktop_jwm() {
+    XINITRC_PATH="/home/chrona-live/.xinitrc"
+
+    # Skip if .xinitrc exists and already configured for icewm-session
+    if [ -f "$XINITRC_PATH" ] && grep -q "exec icewm-session" "$XINITRC_PATH"; then
+        return 0
+    fi
+
+    # Create .xinitrc with icewm-session configuration
+    cat > "$XINITRC_PATH" <<EOF
+#!/bin/sh
+exec jwm
+EOF
+
+    # Set ownership and permissions
+    chown chrona-live:chrona-live "$XINITRC_PATH"
+    chmod 755 "$XINITRC_PATH"
+}
+
+
+
+# Configure .xinitrc for xfce4
+configure_xinitrc_for_xfce() {
+    XINITRC_PATH="/home/chrona-live/.xinitrc"
+
+    # Skip if .xinitrc exists and already configured for xfce4
+    if [ -f "$XINITRC_PATH" ] && grep -q "exec startxfce4" "$XINITRC_PATH"; then
+        return 0
+    fi
+
+    # Create .xinitrc with xfce4 configuration
+    cat > "$XINITRC_PATH" <<EOF
+#!/bin/sh
+exec startxfce4
+EOF
+
+    # Set ownership and permissions
+    chown chrona-live:chrona-live "$XINITRC_PATH"
+    chmod 755 "$XINITRC_PATH"
+}
+
+# Configure .xinitrc for mate
+configure_xinitrc_for_mate() {
+    XINITRC_PATH="/home/chrona-live/.xinitrc"
+
+    # Skip if .xinitrc exists and already configured for mate
+    if [ -f "$XINITRC_PATH" ] && grep -q "dbus-launch --exit-with-session mate-session" "$XINITRC_PATH"; then
+        return 0
+    fi
+
+    # Create .xinitrc with mate configuration
+    cat > "$XINITRC_PATH" <<EOF
+#!/bin/sh
+# Launch D-Bus session for mate
+dbus-launch --exit-with-session mate-session
+EOF
+
+    # Set ownership and permissions
+    chown chrona-live:chrona-live "$XINITRC_PATH"
+    chmod 755 "$XINITRC_PATH"
+}
+
+start() {
+    ebegin "Starting session as chrona-live user"
+
+    # Set up udev if eudev package is installed
+    if check_pkg eudev; then
+        setup-devd udev
+        ret=$?
+    fi
+
+    # Configure Xwrapper to allow anybody to start X
+    if [ ! -f /etc/X11/Xwrapper.config ]; then
+        echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
+    fi
+
+    # Start appropriate session based on installed packages
+    if check_pkg clxqt; then
+        # Start clxqt service if clxqt package is installed
+        rc-service clxqt start
+        ret=$?
+    elif check_pkg mate-desktop-environment; then
+        # Configure and start mate session
+        configure_xinitrc_for_mate
+        su - chrona-live -c "startx"
+        ret=$?
+    elif check_pkg xfce4; then
+        # Configure and start xfce4 session
+        configure_xinitrc_for_xfce
+        su - chrona-live -c "startx"
+        ret=$?
+    elif check_pkg cdesktop-jwm; then
+        # Configure and start cdesktop (jwm) session
+        configure_xinitrc_for_cdesktop_jwm
+        su - chrona-live -c "startx"
+        ret=$?
+    elif check_pkg cdesktop-icewm; then
+        # Configure and start cdesktop (icewm) session
+        configure_xinitrc_for_cdesktop_icewm
+        su - chrona-live -c "startx"
+        ret=$?
+    else
+        # No action if no relevant packages are installed
+        ret=0
+    fi
+
+    eend $ret
+}
+
+stop() {
+    ebegin "Stopping chrona-live session service"
+    # Perform session termination tasks
+    eend $?
+}

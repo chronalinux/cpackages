@@ -1,0 +1,31 @@
+# Maintainer: Sahan Yılmaz <sahan@chronalinux.org.tr>
+pkgname=cnetwork
+pkgver=0.3
+pkgrel=0
+pkgdesc="Lightweight FLTK‐based network configurator"
+url="https://chronalinux.org.tr"
+arch="all"
+license="MIT"
+depends="sudo fltk iproute2 wireless-tools wpa_supplicant dhcpcd"
+makedepends="build-base fltk-dev pkgconf"
+source="cnetwork.desktop main.cpp"
+sha512sums="
+e7233164a7be69c461c2c6ea4b18116e0fee48487ea59a64cfcbedf3a2888abeb2847f25289e44a6f9d365a43683e1cd8c23e9a3ff4e055dcc2801a43ee21a0b  cnetwork.desktop
+85656c6e4c0d42c84debc4996222147d3c445aa1fca0451e38e8e8ccc382b9ce72e457d62c9627b49863aaaf4d21046b6ed3abb12a5b8b00375d3ed936e63547  main.cpp
+"
+
+build() {
+    cd "$srcdir"
+    g++ main.cpp -o cnetwork \
+        $(fltk-config --cxxflags --ldflags) \
+        -std=c++11
+}
+
+package() {
+    cd "$srcdir"
+    install -Dm755 cnetwork "$pkgdir"/usr/bin/cnetwork
+    mkdir -p "$pkgdir"/usr/share/applications
+    install -Dm755 cnetwork.desktop "$pkgdir"/usr/share/applications
+}
+
+

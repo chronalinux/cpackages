@@ -1,0 +1,59 @@
+# Maintainer: Şahan Yılmaz <sahan@chrona.org.tr>
+pkgname=clxqt
+pkgver=1.4
+pkgrel=0
+pkgdesc="Lxqt Desktop for Chrona Linux"
+url="https://chrona.org.tr"
+arch="noarch !armhf !s390x"
+license="MIT"
+subpackages="clxqt-openrc:openrc clxqt-full:full clxqt-themes:theme"
+depends="
+	xorg-server xf86-input-libinput clxqt-themes clxqt-openrc xinit eudev udev-init-scripts 
+	udev-init-scripts-openrc mesa-dri-gallium
+	libqtxdg libsysstat liblxqt libfm-qt lxqt-themes
+	libdbusmenu-lxqt lxqt-about lxqt-admin lxqt-config
+	lxqt-globalkeys lxqt-powermanagement chrona-lxqt-session
+	lxqt-panel lxqt-runner chrona-pcmanfm-qt xscreensaver
+	lxqt-qtplugin lxqt-notificationd lxqt-archiver
+	lxqt-policykit lxqt-openssh-askpass lxqt-sudo
+	pm-utils qtermwidget qterminal openbox xdg-utils
+	lximage-qt pavucontrol-qt arandr obconf-qt screengrab lxdm
+	elogind polkit-elogind gvfs udisks2 breeze  oxygen  
+	font-dejavu dbus dbus-x11 acpid upower pulseaudio pulseaudio-alsa
+	chrona-nm-gtk
+	"
+
+package() {
+    mkdir -p "$pkgdir"
+}
+
+
+theme() {
+    replaces="lxqt-themes pcmanfm-qt"
+    source="chrona.tar.gz chrona-25-03.png"
+    mkdir -p "$subpkgdir"
+    mkdir -p "$subpkgdir"/usr/share/lxqt/themes
+    mkdir -p "$subpkgdir"/usr/share/lxqt/wallpapers
+    tar -xzf chrona.tar.gz -C "$subpkgdir"/usr/share/lxqt/themes/
+    install -Dm644 chrona-25-03.png "$subpkgdir"/usr/share/lxqt/wallpapers/chrona-25-03.png
+    sha512sums="
+b4a06a22786c49822d105880755b8599a16dc1abb2ed332ff9dcfeb00e6125dddecc200a84d99009784889df380207d52e11d5380e78881835101c6b66325542  chrona.tar.gz
+8bbf2565d4e6c2f743a23e14331db0e7e3ec22e51281baf7d056eac53425719850d17c5ac4f32d785bd685e7b9f93b60bb79b592a2c0714af5aaa74af2b0a942  chrona-25-03.png
+"
+}
+
+
+openrc() {
+	replaces="openrc"	
+	mkdir -p "$subpkgdir"
+	source="clxqt.initd"
+        install -Dm755 clxqt.initd "$subpkgdir"/etc/init.d/clxqt
+        sha512sums="623a732334015c248b508fedf17100cc50d037276c016c104d29d67329fc846ccff84a892c2059ff000a6c3a562173c1cfabd1d66cb902b026c5f86a3253439d  clxqt.initd
+"
+}
+
+
+full() {
+        depends="clxqt mpv xpdf falkon libreoffice claws-mail xpdf" 
+        mkdir -p "$subpkgdir"
+}

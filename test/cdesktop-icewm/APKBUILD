@@ -1,0 +1,77 @@
+# Maintainer: Şahan Yılmaz <sahan@chronalinux.org.tr>
+pkgname=cdesktop
+pkgver=1.4
+pkgrel=0
+pkgdesc="Minimal Icewm Masaüstü Ortamı"
+url="https://chronalinux.net.tr"
+arch="all"
+license="MIT"
+depends="
+    icewm
+    spacefm
+    xorg-server
+    xf86-input-libinput
+    xinit
+    eudev
+    volumeicon
+    alsa-utils
+    alsaconf
+    mesa-dri-gallium
+    chrona-networkmanager-gtk
+    netsurf
+    st
+    font-dejavu
+    adwaita-icon-theme
+    dbus
+    dbus-x11
+    xterm
+    mesa-gles
+"
+
+# Ek yapılandırma dosyaları eklendi
+source="
+    mainmenu.svg
+    preferences
+    startup
+    cdesktop-wallpaper
+    chrona25-04.png
+"
+
+build() {
+      return 0
+}
+
+package() {
+    mkdir -p "$pkgdir"/etc/skel/
+    mkdir -p "$pkgdir"/etc/skel/.config/cdesktop/
+    mkdir -p "$pkgdir"/etc/skel/.config/icewm/
+    mkdir -p "$pkgdir"/usr/share/cdesktop/
+    mkdir -p "$pkgdir"/usr/share/icons/chrona/
+    mkdir -p "$pkgdir"/usr/share/applications/
+    mkdir -p "$pkgdir"/usr/share/cdesktop/wallpapers
+    install -Dm755 startup "$pkgdir"/etc/skel/.config/icewm/startup
+    install -Dm755 preferences "$pkgdir"/etc/skel/.config/icewm/preferences
+    install -Dm644 chrona25-04.png "$pkgdir"/usr/share/cdesktop/wallpapers/chrona25-04.png
+    install -Dm644 mainmenu.svg "$pkgdir"/usr/share/icons/chrona/mainmenu.svg
+    install -Dm755 cdesktop-wallpaper "$pkgdir"/etc/skel/.config/cdesktop/cdesktop-wallpaper
+	cat >"$pkgdir"/usr/share/applications/cdesktop.desktop<<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=cdesktop-menu
+Comment=Main Menu Desktop Application
+Exec=
+Icon=/usr/share/icons/chrona/mainmenu.svg
+Terminal=false
+Categories=Utility;
+EOF
+
+}
+
+sha512sums="
+f3e95114f516671775d3f6a314ab5730b7068c44aecf3818dbf80c081ead26b12de06cdff41f74332a49c9961e575a57cb9f8c6c4e0b4fcdc32fb3b01f97f443  startup
+a4cf9ec771d6b45f44f5281ebe4c16d10c72dc3ebd08edc3c0bb1932762ea56028285bb2e5130df7fbdeba1d4085b9486600f102359c803925908e2ea98306c1  mainmenu.svg
+8bbf2565d4e6c2f743a23e14331db0e7e3ec22e51281baf7d056eac53425719850d17c5ac4f32d785bd685e7b9f93b60bb79b592a2c0714af5aaa74af2b0a942  chrona25-04.png
+6e18cfe8179dfae345f2e11988728701610a61205dd086f483b9dba1264f141d5f0e4f8933bce576fadf667cef17ce38d8b29b296b9a4c3f95aa2886d13d7e7f  cdesktop-wallpaper
+79d80481e0c5029d0a305a61a48e59449f74929cf77e2ac29a1263970652d2cb8ad7a6e9b6a1c375f5fe13666d31779d16500cd927543157b8f7039da2532689  preferences
+"

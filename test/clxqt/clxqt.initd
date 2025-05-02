@@ -1,0 +1,94 @@
+#!/sbin/openrc-run
+
+description="Chrona Masaüstü Oturumu"
+
+# Paketin kurulu olup olmadığını kontrol eder
+check_pkg() {
+    apk info "$1" >/dev/null 2>&1
+}
+
+# NetworkManager'ı yapılandırır (opsiyonel)
+configure_networkmanager() {
+    if check_pkg chrona-nm-gtk; then
+        # NetworkManager zaten eklendiğinden emin olmak için kontrol
+        if ! rc-status | grep -q networkmanager; then
+            rc-update add networkmanager default
+            rc-service networkmanager start
+        fi
+    fi
+}
+
+start_pre() {
+    # Gerekli hizmetlerin başlatılması
+    setup-devd udev
+    configure_networkmanager
+    
+    ebegin "X11 ortamı hazırlanıyor"
+    
+    # X11 dizinini oluştur
+    if ! mkdir -p /etc/X11; then
+        eend 1 "X11 dizini oluşturulamadı"
+        return 1
+    fi
+    
+    # Xwrapper yapılandırmasını ayarla
+    XWRAPPER_CONFIG="/etc/X11/Xwrapper.config"
+    if ! echo "allowed_users=anybody" > "$XWRAPPER_CONFIG"; then
+        eend 1 "Xwrapper yapılandırması başarısız"
+        return 1
+    fi
+    
+    # Kullanıcı .xinitrc dosyalarını oluştur
+    for user_dir in /etc/skel /home/chrona /root; do
+        xinitrc="$user_dir/.xinitrc"
+        if [ -f "$xinitrc" ]; then
+            continue
+        fi
+        
+        # Dosyayı yaz
+        if ! echo "exec startlxqt" > "$xinitrc"; then
+            ewarn "$xinitrc oluşturulamadı"
+            continue
+        fi
+        
+        # Dosya izinlerini ayarla
+        chmod 755 "$xinitrc"
+        einfo "$xinitrc oluşturuldu"
+    done
+    
+    eend 0
+}
+
+start() {
+    ebegin "Grafik oturumu başlatılıyor"
+    
+    # Gerekli kullanıcı kontrolü
+    if ! id -u chrona >/dev/null 2>&1; then
+        eend 1 "Kullanıcı 'chrona' bulunamadı"
+        return 1
+    fi
+    
+    # Başlangıç senaryoları
+    if check_pkg chrona-live-boot; then
+        # X sunucusunu başlat
+        su - chrona -c "startx" 2>/var/log/chrona-startx.log &
+        eend 0
+        
+    elif check_pkg lxdm; then
+        # LXDM'yi başlat
+        if ! rc-service lxdm start; then
+            eend 1 "LXDM başlatılamadı"
+            return 1
+        fi
+        eend 0
+        
+    else
+        eend 1 "Gerekli paketler eksik (chrona-live-boot veya lxdm)"
+        return 1
+    fi
+}
+
+stop() {
+    ebegin "Servisler durduruluyor"
+    eend 0
+}
