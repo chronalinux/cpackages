@@ -2,7 +2,7 @@
 Name=Chrona Installer
 Comment=Chrona Linux Installer
 GenericName=Chrona Linux Installer
-Exec=xterm -fullscreen -e  sudo -s chronainstaller
+Exec=xterm -fullscreen -e sudo sh -c 'rc-service clive stop >/dev/null 2>&1 && chronainstaller'
 Icon=/usr/share/chrona/chrona-installer64.png
 Type=Application
 StartupNotify=false

@@ -1,7 +1,7 @@
 # Maintainer: Şahan Yılmaz <sahan@chronalinux.org.tr>
 pkgname=chrona-installer
-pkgver=25.04
-pkgrel=4
+pkgver=0.1
+pkgrel=0
 pkgdesc="Chrona Linux Installer"
 url="https://chronalinux.org.tr"
 arch="all"
@@ -27,7 +27,7 @@ install="$pkgname.pre-deinstall"
 }
 sha512sums="
 3d3cb05e425a19e87ec968fd08018f1e60c6b8bdde80e62d6e0b46e8ff27a262be07f6714d52cd88f7b67fad25827dca34cdcc6fd85ca9067d158e0f6c830ec2  chrona-installer.png
-b33603b349f62314979a11378f24a73b7b14d00dbce7b5422b873b300bb76d5ae4630e261ee9e1f7b1be82c7871b2768257e2c1731d07ec1d8f353adb56fea4a  cinstaller.desktop
+cf72da676eaaee999e6a48decde3610895399f817a15c7b6397971ec88ad4d4e023eaaca02a84a9601f9b7f26612615b29bdba248917126c81179c4fa02d665d  cinstaller.desktop
 6a3ad52e08d9027f70c58c15f4e8a08a67e7b509e0b2fb75228fd98a03a1b8ba2c5cb390f62e5a80ea4275536030852c83351ab48d69c7623e17c54bd09d9c9f  ci-disk
-b83f589669f3cca1ef07fc514217a7dbcbd1dd4a579f01c25646dbeb60a77c3ac65083706daf8c3da58392cae90d0f10cf447878c39cbb8164699c907d1423d8  chronainstaller
+e79991d3e53ba25ef2959d681b53343384f4ad28e1e393028a5cfeb0f1a239485864326acb2364a2585ac4acb1e3bee7256b93c02d0bf9bb95b06275753f8358  chronainstaller
 "

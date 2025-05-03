@@ -1,6 +1,6 @@
 # Maintainer: Şahan Yılmaz <sahan@chrona.org.tr>
 pkgname=chrona-base
-pkgver=25.04
+pkgver=25.5
 pkgrel=0
 pkgdesc="Meta package for minimal chrona base"
 url="https://chronalinux.org.tr"

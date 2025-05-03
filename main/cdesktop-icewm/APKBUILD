@@ -21,6 +21,7 @@ depends="
     font-dejavu
     adwaita-icon-theme
     xterm
+    rxvt-unicode
     mesa-gles
     abiword
     gnumeric

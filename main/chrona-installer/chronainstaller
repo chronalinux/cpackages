@@ -163,7 +163,7 @@ if [ -n "$CREATEANSWERFILE" ]; then
 fi
 
 printf "\n\n"
-print_heading1 " CHRONA LINUX INSTALL"
+print_heading1 " CHRONA LINUX INSTALLER [BETA]"
 print_heading1 "----------------------"
 
 if [ "$ARCHIVE" ] ; then
