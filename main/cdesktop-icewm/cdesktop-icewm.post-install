@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Tüm mevcut kullanıcıların ev dizinlerine .xinitrc ekle
+for dir in /home/*; do
+    if [ -d "$dir" ]; then
+        user=$(basename "$dir")
+        su - "$user" -c 'echo "exec icewm-session" > ~/.xinitrc && chmod +x ~/.xinitrc'
+    fi
+done
+
+# Yeni kullanıcılar için şablon
+echo "exec icewm-session" > /etc/skel/.xinitrc
+chmod +x /etc/skel/.xinitrc
+

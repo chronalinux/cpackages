@@ -1,0 +1,297 @@
+#!/bin/sh
+
+PROGRAM=capkrepos
+PREFIX=/usr
+: ${LIBDIR=$PREFIX/lib}
+. "$LIBDIR/libalpine.sh"
+
+: ${MIRRORS_URL:=https://mirrors.alpinelinux.org/mirrors.txt}
+
+# Chrona base URL
+CHR_BASE="https://dl.chronalinux.org.tr/chrona"
+
+# Community enabled by default
+community_prefix=""
+
+if [ "$ROOT" != "/" ]; then
+    apk_root_opt="--root $ROOT"
+fi
+
+get_hostname_from_url() {
+    local n="${1#*://}"
+    echo ${n%%/*}
+}
+
+get_mirror_count() {
+    set -- $MIRRORS
+    echo $#
+}
+
+time_cmd() {
+    local start="$(cut -d ' ' -f1 /proc/uptime)"
+    "$@" >&2 || return
+    awk -v start=$start -v end=$(cut -d ' ' -f1 /proc/uptime) 'BEGIN {print end - start; exit}'
+}
+
+find_fastest_mirror() {
+    local url arch="$(apk --print-arch)"
+    for url in $MIRRORS; do
+        nslookup $(get_hostname_from_url "$url") >/dev/null 2>&1
+        local time="$(time_cmd wget --spider -q -T 5 -t 1 ${url%/}/edge/main/$arch/APKINDEX.tar.gz)"
+        [ -n "$time" ] && echo "$time $url"
+    done | tee /dev/stderr | sort -nk1,1 | head -n1 | cut -d' ' -f2
+}
+
+show_mirror_list() {
+    local mirror i=0
+    [ -z "$MIRRORS" ] && return
+    echo "\nAvailable mirrors:"
+    for mirror in $MIRRORS; do
+        i=$((i + 1))
+        echo "$i) $(get_hostname_from_url "$mirror")"
+    done
+    echo ""
+}
+
+edit_repositories() {
+    local md5="$(md5sum "$APKREPOS_PATH" 2>/dev/null)"
+    mkdir -p "${APKREPOS_PATH%/*}"
+    ${EDITOR:-vi} "$APKREPOS_PATH"
+    [ "$(md5sum "$APKREPOS_PATH" 2>/dev/null)" != "$md5" ]
+}
+
+# Fetch Alpine mirrors list
+# Only fetch if $MIRRORS is empty or not yet populated (e.g., from libalpine.sh)
+[ -z "$MIRRORS" ] && MIRRORS=$(wget -qO- "$MIRRORS_URL")
+
+get_alpine_release() {
+    local version
+    # Try to get release from existing repos or alpine-release file
+    version=$(grep -Eom1 '[^/]+/main/?$' "${ROOT}"etc/apk/repositories 2>/dev/null \
+        | grep -Eo '^[^/]+' \
+        || cat "${ROOT}"etc/alpine-release 2>/dev/null)
+    case "$version" in
+        *_git*|*_alpha*) release="edge";; # Handle development branches
+        [0-9]*.[0-9]*.[0-9]*) release=v${version%.[0-9]*};; # Handle releases like 3.16.0 -> v3.16
+        v[0-9]*.[0-9]*) release="$version";; # Handle releases like v3.17
+        *) release="edge";; # Default to edge if release cannot be determined
+    esac
+}
+
+add_chrona_mirror() {
+    mkdir -p "${APKREPOS_PATH%/*}"
+    # Only add if it's not already there
+    grep -qx -- "${CHR_BASE%/}/${release}/main" "$APKREPOS_PATH" || {
+        echo "${CHR_BASE%/}/${release}/main" >> "$APKREPOS_PATH"
+        echo "Added Chrona mirror (main only)"
+    }
+}
+
+add_alpine_mirror() {
+    local mirror="$1"
+    mkdir -p "${APKREPOS_PATH%/*}"
+    # Only add main if it's not already there
+    grep -qx -- "${mirror%/}/${release}/main" "$APKREPOS_PATH" || {
+        echo "${mirror%/}/${release}/main" >> "$APKREPOS_PATH"
+        echo "Added Alpine mirror $(get_hostname_from_url "$mirror") (main)"
+    }
+    # Only add community if it's not already there and community is enabled
+    if [ -z "$community_prefix" ]; then
+        grep -qx -- "${mirror%/}/${release}/community" "$APKREPOS_PATH" || {
+            echo "${mirror%/}/${release}/community" >> "$APKREPOS_PATH"
+            echo "Added Alpine mirror $(get_hostname_from_url "$mirror") (community)"
+        }
+    fi
+}
+
+ask_setup_method() {
+    local cstate="enabled"
+    [ -n "$community_prefix" ] || cstate="disabled"
+    cat <<-EOF
+(1)    Add Chrona (main) + first Alpine mirror (main+community)
+(f)    Find and use fastest mirror (Chrona main first)
+(s)    Show mirrorlist
+(e)    Edit ${ROOT}etc/apk/repositories with text editor
+(c)    Toggle community repo (currently $cstate)
+(skip) Skip setting up apk repositories
+EOF
+    ask "Enter mirror option:" "$1"
+    printf "\n"
+}
+
+usage() {
+    cat <<-EOF
+usage: $PROGRAM [-ch] [-f|-1|REPO...]
+       $PROGRAM -o
+
+Setup apk repositories
+
+options:
+ -c    Toggle community repo (default ON)
+ -f    Detect and add fastest mirror (Chrona main first)
+ -h    Show this help
+ -o    Only enable community for existing repos
+ -1    Add Chrona + first Alpine mirror directly
+EOF
+    exit "$1"
+}
+
+add_fastest=false
+add_first_only=false # Renamed for clarity
+add_community_repos=false
+while getopts "c1fho" opt; do
+    case $opt in
+        c) community_prefix="${community_prefix:+}";; # Toggle community status
+        f) add_fastest=true;;
+        1) add_first_only=true;; # Use the new flag
+        o) add_community_repos=true;;
+        h) usage 0;;
+        *) usage 1;;
+    esac
+done
+shift $((OPTIND - 1))
+
+APKREPOS_PATH="${ROOT}"etc/apk/repositories
+[ -r "$APKREPOS_PATH" ] && APKREPOS=$(cat "$APKREPOS_PATH") # Read existing repos if any
+get_alpine_release # Determine the release version (e.g., v3.18, edge)
+changed=false
+
+# Handle command-line arguments (specific repos provided)
+if [ $# -gt 0 ] && ! $add_community_repos; then
+    echo "Replacing existing repositories with provided list."
+    # Create directory and empty the file before writing
+    mkdir -p "${APKREPOS_PATH%/*}"
+    > "$APKREPOS_PATH" # Empty the file
+    for repo; do
+        # Simple check to avoid adding empty lines if any arg is empty
+        [ -n "$repo" ] && echo "$repo" >> "$APKREPOS_PATH" && changed=true
+    done
+fi
+
+# Handle -1 option (Add Chrona + first Alpine mirror)
+$add_first_only && {
+    echo "Adding Chrona and first Alpine mirror..."
+    add_chrona_mirror
+    set -- $MIRRORS # Set positional params to the mirrors list
+    if [ -n "$1" ]; then # Check if MIRRORS list is not empty
+        add_alpine_mirror "$1"
+        changed=true
+    else
+        echo "Warning: Alpine mirror list is empty, could not add first mirror." >&2
+    fi
+}
+
+# Handle -f option (Add Chrona + fastest Alpine mirror)
+$add_fastest && {
+    echo "Finding fastest Alpine mirror..."
+    add_chrona_mirror
+    fastest=$(find_fastest_mirror)
+    if [ -n "$fastest" ]; then
+        add_alpine_mirror "$fastest"
+        changed=true
+    else
+        echo "Warning: Could not find a fastest Alpine mirror." >&2
+    fi
+}
+
+# Handle -o option (Only enable community for existing repos)
+$add_community_repos && {
+    echo "Adding community repositories for existing main entries..."
+    # Use a temp file to build the new content
+    TEMP_REPOS=$(mktemp)
+    added_any_community=false
+    # Read existing repos line by line
+    while IFS= read -r repo || [ -n "$repo" ]; do
+        echo "$repo" >> "$TEMP_REPOS" # Keep original line
+        # If the line is an uncommented main repo and community is enabled
+        if [ -z "$community_prefix" ] && echo "$repo" | grep -q '^[^#].*/main$'; then
+            crepo="${repo%%/main}/community"
+            # Add community repo only if it's not already in the temp file
+            if ! grep -qx -- "$crepo" "$TEMP_REPOS"; then
+                 echo "$crepo" >> "$TEMP_REPOS"
+                 changed=true
+                 added_any_community=true
+                 echo " -> Added $crepo"
+            fi
+        fi
+    done < "$APKREPOS_PATH"
+
+    # Replace the original file with the temp file content
+    if $changed; then
+        mv "$TEMP_REPOS" "$APKREPOS_PATH"
+        echo "Updated $APKREPOS_PATH"
+    else
+        echo "No community repositories to add or all already present."
+        rm "$TEMP_REPOS" # Clean up temp file
+    fi
+    # Exit after -o operation if no other mode was selected
+    # This prevents interactive mode from starting after -o
+    if [ "$add_first_only" = false ] && [ "$add_fastest" = false ] && [ $# -eq 0 ]; then
+       exit 0
+    fi
+}
+
+
+interactive=false
+# Enter interactive mode only if no specific arguments or flags like -1, -f, -o were given
+if [ "$add_first_only" = false ] && [ "$add_fastest" = false ] && [ "$add_community_repos" = false ] && [ $# -eq 0 ]; then
+    interactive=true
+fi
+
+
+while $interactive && ! $changed; do
+    ask_setup_method
+    case "$resp" in
+        1)
+            # Modified: Only add Chrona and the *first* Alpine mirror
+            add_chrona_mirror
+            set -- $MIRRORS # Set positional params to the mirrors list
+            if [ -n "$1" ]; then # Check if MIRRORS list is not empty
+                add_alpine_mirror "$1"
+                changed=true
+            else
+                echo "Warning: Alpine mirror list is empty, could not add first mirror." >&2
+            fi
+            ;;
+        f)
+            add_chrona_mirror
+            fastest=$(find_fastest_mirror) # Corrected function call
+            if [ -n "$fastest" ]; then
+                 add_alpine_mirror "$fastest"
+                 changed=true
+            else
+                 echo "Warning: Could not find a fastest Alpine mirror." >&2
+            fi
+            ;;
+        s) show_mirror_list | more;;
+        e) edit_repositories && changed=true;;
+        c)
+            # Toggle community_prefix: empty means enabled, '#' means disabled
+            [ -z "$community_prefix" ] && community_prefix="#" || community_prefix=""
+            printf "Community repo %s\n\n" "${community_prefix:+disabled, currently ${community_prefix:+#}enabled}"
+            ;;
+        skip) break;; # Exit the loop if skip is chosen
+        *) echo "Invalid option: $resp";; # Handle invalid input
+    esac
+    # If an option changed something, break the loop (except 'c' and 's')
+    # This prevents re-asking after successful repository setup via 1, f, or e
+    if $changed; then
+        # Unless the action was just toggling community or showing list
+        case "$resp" in c|s) changed=false;; esac # Don't exit loop for c or s
+    fi
+done # End of while loop
+
+# Final check for changes and update apk database
+if [ "$changed" = true ]; then
+    echo -n "Updating repository indexes... "
+    # Ensure we have write permissions before attempting update
+    if [ -w "${ROOT}"etc/apk/repositories ]; then
+        apk update --quiet $apk_root_opt && echo "done." || echo "failed."
+    else
+        echo "failed: Cannot update index, permission denied for ${ROOT}etc/apk/repositories or apk database." >&2
+        echo "Please run the script with root privileges (e.g., using sudo)." >&2
+        exit 1 # Exit with error status
+    fi
+fi
+
+exit 0 # Exit successfully

@@ -17,7 +17,7 @@ openrc() {
         mkdir -p "$subpkgdir"
         source="clive.initd"
         install -Dm755 clive.initd "$subpkgdir"/etc/init.d/clive
-        sha512sums="f83455ea6a0ca6de196199fc449a2a22e182e0c8e1a3726ed3da2c7153cff8d1919f95980fd3df0f82996b32384e0a779dd196fdca7d0bdc7c3f9f402496d39c  clive.initd
+        sha512sums="08b85d8d16eaa6ae512d0406c6c05b6d4befd5973bfee49226a38a8733ea962f519d8d54d4b52325c921361d532466c5464314bcabffcf6c83306e8c8c5bca96  clive.initd
 "
 }
 

@@ -1,6 +1,6 @@
 # Maintainer: Şahan Yılmaz <sahan@chronalinux.org.tr>
 pkgname=chrona-installer
-pkgver=0.1
+pkgver=0.3
 pkgrel=0
 pkgdesc="Chrona Linux Installer"
 url="https://chronalinux.org.tr"
@@ -8,12 +8,14 @@ arch="all"
 license="MIT"
 depends="rsync"
 replaces="alpine-conf"
-source="ci-disk cinstaller.desktop chrona-installer.png chronainstaller"
+source="ci-disk cinstaller.desktop chrona-installer.png chronainstaller ci-setup-user capkrepos"
 subpackages="chrona-installer-gui:gui"
 package() {
     mkdir -p "$pkgdir"
     install -Dm755 ci-disk "$pkgdir"/usr/sbin/ci-disk
     install -Dm755 chronainstaller "$pkgdir"/usr/sbin/chronainstaller
+    install -Dm755 capkrepos "$pkgdir"/usr/sbin/capkrepos
+    install -Dm755 ci-setup-user "$pkgdir"/usr/sbin/ci-setup-user
 }
 
 
@@ -27,7 +29,9 @@ install="$pkgname.pre-deinstall"
 }
 sha512sums="
 3d3cb05e425a19e87ec968fd08018f1e60c6b8bdde80e62d6e0b46e8ff27a262be07f6714d52cd88f7b67fad25827dca34cdcc6fd85ca9067d158e0f6c830ec2  chrona-installer.png
-cf72da676eaaee999e6a48decde3610895399f817a15c7b6397971ec88ad4d4e023eaaca02a84a9601f9b7f26612615b29bdba248917126c81179c4fa02d665d  cinstaller.desktop
-6a3ad52e08d9027f70c58c15f4e8a08a67e7b509e0b2fb75228fd98a03a1b8ba2c5cb390f62e5a80ea4275536030852c83351ab48d69c7623e17c54bd09d9c9f  ci-disk
-e79991d3e53ba25ef2959d681b53343384f4ad28e1e393028a5cfeb0f1a239485864326acb2364a2585ac4acb1e3bee7256b93c02d0bf9bb95b06275753f8358  chronainstaller
+1fd512eb44f9735385410e5471d41c963cb4ea2246829ceeca7514abfc9cf9fe0fcb8b610f484b2f7855df28a4055db422550df6e161bd6eba1e5e466d6f1f23  cinstaller.desktop
+33c18411053dc35d0685ceff0060d4435b32e9dc1a27102ad134313ef4cf204992422dccc44b08ca44560c36770ed0a32b4321e1d8f177bbc3903252e0d12938  chronainstaller
+1d9d81931e35524da3df907b2195b3fa8287345d406f23dc37f97d3295aa0c682bed276ef550c570057426ee8a6e4fe2c6df1dc5933f06f96c34a23c133f4c9e  ci-disk
+a5bf031c980742eec9df59bdadd62759b935cdb5bb6a647a108e06b9972a225a20b3744a3c571dd66cb40ff1465d8bde72ae433d688d8c19097e07df5b960194  capkrepos
+e683f85f94bb1699a6a91dcc028e5d32a4dd94f7510197bd8cb1d2ba51e94219ebccaaebc93a5ff386fff805c0cd92d6b219cccc0986a76632f39556c98ac8ba  ci-setup-user
 "

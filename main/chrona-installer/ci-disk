@@ -13,11 +13,8 @@ DISKLABEL=${DISKLABEL:-dos}
 KERNELOPTS=${KERNELOPTS:-rw quiet}
 SYSROOT=${SYSROOT:-/mnt}
 
-repos="$(sed -e 's/\#.*//' "/etc/apk/repositories" 2>/dev/null)"
-repoflags=
-for i in $repos; do
-	repoflags="$repoflags --repository $i"
-done
+repoflags="--repository /media/cdrom/apks"
+apkflags="--quiet --allow-untrusted --no-interactive --progress"
 
 in_list() {
 	local i="$1"
@@ -325,20 +322,34 @@ extract_live_root_to_target() {
         $SBB mkdir -p "${TARGET_DIR}/media"
     fi
     echo "Essential directories checked/created."
-    
-    echo "Removing live packages"
-    if [ "$USE_QUIET" -eq 1 ]; then
-        quiet $SBB chroot "${TARGET_DIR}" /bin/sh -c "apk del --no-cache --progress chrona-live-boot chrona-installer chrona-installer-gui"
-        local CHROOT_EXIT_STATUS=$?
-    else
-        $SBB chroot "${TARGET_DIR}" /bin/sh -c "apk del --no-cache --progress chrona-live-boot chrona-installer chrona-installer-gui"
-        local CHROOT_EXIT_STATUS=$?
-    fi
+  local PACKAGES="chrona-live-boot chrona-installer chrona-installer-gui"
 
-    if [ $CHROOT_EXIT_STATUS -ne 0 ]; then
-        echo "Error: Chroot or package removal failed (exit status: $CHROOT_EXIT_STATUS)!" >&2
-        return 1
+  for pkg in $PACKAGES; do
+    # 1) Check if $pkg is installed inside chroot
+    $SBB chroot "$TARGET_DIR" /bin/sh -c "apk info -e $pkg" >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+      printf "Removing %s… " "$pkg"
+
+      # 2) Remove it quietly or with progress
+      if [ "$USE_QUIET" -eq 1 ]; then
+        quiet $SBB chroot "$TARGET_DIR" /bin/sh -c \
+          "apk del --no-cache --progress $pkg"
+      else
+        $SBB chroot "$TARGET_DIR" /bin/sh -c \
+          "apk del --no-cache --progress $pkg"
+      fi
+      EXIT_STATUS=$?
+
+      # 3) Report the result
+      if [ "$EXIT_STATUS" -ne 0 ]; then
+        echo "ERROR (code $EXIT_STATUS)"
+      else
+        echo "OK"
+      fi
+    else
+      echo "Skipping $pkg (not installed)."
     fi
+  done
 
     echo "Live system packages successfully removed."
 
@@ -452,9 +463,20 @@ is_nvme_dev() {
 	return 1
 }
 
+
+
+
+rc_add() {
+    mkdir -p "$mnt"/etc/runlevels/"$2"
+    ln -sf /etc/init.d/"$1" "$mnt"/etc/runlevels/"$2"/"$1"
+}
+
+check_pkg() {
+    # -e option lists only installed packages
+    apk info -e "$1" >/dev/null 2>&1
+}
 install_mounted_root() {
 	local mnt="$(realpath "$1")"
-	local squashfs_file="$2"
 	shift 2
 	local disks="$@" mnt_boot= boot_fs= root_fs= use_crypt=
 	local initfs_features="ata base ide scsi usb virtio"
@@ -493,6 +515,9 @@ install_mounted_root() {
 		[ -z "$FORCE_BOOTFS" ] && return 1
 		echo "Continuing at your own risk."
 	fi
+    if check_pkg eudev; then
+        setup-devd udev
+    fi
 	extract_live_root_to_target "$mnt"
 	if [ -f "$mnt"/etc/fstab ]; then
 		mv "$mnt"/etc/fstab "$mnt"/etc/fstab.old
@@ -554,10 +579,6 @@ install_mounted_root() {
 			;;
 	esac
 	init_chroot_mounts "$mnt"
-	rc_add() {
-    	mkdir -p "$mnt"/etc/runlevels/"$2"
-    	ln -sf /etc/init.d/"$1" "$mnt"/etc/runlevels/"$2"/"$1"
-	}
 	# Essential sysinit services
 	for svc in devfs dmesg mdev hwdrivers; do
     	rc_add "$svc" sysinit
@@ -574,7 +595,7 @@ install_mounted_root() {
 	for svc in dbus networkmanager alsa swap; do
     	[ -e ""$mnt"/etc/init.d/$svc" ] && rc_add "$svc" boot
 	done
-        for svc in lxdm lightdm sddm xdm; do
+        for svc in slim lightdm sddm xdm; do
         [ -e ""$mnt"/etc/init.d/$svc" ] && rc_add "$svc" default
         done
 	case "$BOOTLOADER" in
@@ -586,7 +607,6 @@ install_mounted_root() {
 		u-boot) setup_uboot "$mnt" "$root" "$modules" "$kernel_opts" ;;
 		*) die "Bootloader \"$BOOTLOADER\" not supported!" ;;
 	esac
-	local apkflags="--quiet --allow-untrusted --no-interactive --progress"
 	pkgs="linux-lts $(select_bootloader_pkg) $(select_firmware_pkgs)"
 	if [ "$(openrc --sys)" = "XEN0" ]; then
 		pkgs="$pkgs xen-hypervisor"
@@ -725,7 +745,7 @@ init_progs() {
 		vfat) fstools="$fstools dosfstools";;
 		esac
 	done
-	apk add --quiet --allow-untrusted $repoflags sfdisk squashfs-tools $cryptpkg $lvmpkg $raidpkg $fstools $@
+	apk add $apkflags $repoflags sfdisk  $cryptpkg $lvmpkg $raidpkg $fstools $@
 }
 
 show_disk_info() {
@@ -1010,7 +1030,7 @@ data_only_disk_install() {
 }
 
 setup_root() {
-	local root_dev="$1" boot_dev="$2" squashfs_file="$3"
+	local root_dev="$1" boot_dev="$2"
 	echo "$root_dev" > /tmp/ci_disk_root_partion.txt
 	shift 3
 	local disks="$@" mkfs_args="-q"
@@ -1081,7 +1101,7 @@ native_disk_install_lvm() {
 	setup_lvm_swap $vgname
 	lvcreate --quiet -n ${root_dev##*/} -l ${ROOT_SIZE:-100%FREE} $vgname
 	rc-update add lvm boot
-	setup_root "$root_dev" "$BOOT_DEV" "$squashfs_file" "$@"
+	setup_root "$root_dev" "$BOOT_DEV" "$@"
 }
 
 setup_crypt() {
@@ -1194,9 +1214,6 @@ diskselect_help() {
 	data-only install.
 
 	The disk will be erased.
-
-	Enter 'none' if you want to run diskless.
-
 	__EOF__
 }
 
@@ -1224,14 +1241,13 @@ ask_disk() {
 	shift 2
 	local default_disk="${DEFAULT_DISK:-$1}"
 	resp=
-	while ! all_in_list "$resp" $@ "none" "abort"; do
+	while ! all_in_list "$resp" $@ "abort"; do
 		echo "Available disks are:"
 		show_disk_info "$@"
 		printf "\n"
 		ask "$prompt"  "$default_disk"
 		case "$resp" in
 			'abort') exit 0;;
-			'none') return 0;;
 			'?') $help_func;;
 			*) for i in $resp; do
 				if ! [ -b "/dev/$i" ]; then
@@ -1311,9 +1327,6 @@ while getopts "hek:Lm:o:qrs:vw:" opt; do
 done
 shift $(( $OPTIND - 1))
 
-if [ "$DISK_MODE" = "none" ] || [ "$1" = "none" ]; then
-	exit 0
-fi
 
 if is_rpi; then
 	: ${BOOTLOADER:=raspberrypi-bootloader}
@@ -1380,11 +1393,8 @@ if [ $# -gt 0 ]; then
 		diskdevs="$diskdevs $i"
 	done
 else
-	ask_disk "Which disk(s) would you like to use? (or '?' for help or 'none')" \
+	ask_disk "Which disk(s) would you like to use? (or '?' for help)" \
 		diskselect_help $disks
-	if [ "$resp" = "none" ]; then
-		exit 0
-	fi
 	for i in $resp; do
 		diskdevs="$diskdevs /dev/$i"
 	done
@@ -1413,7 +1423,7 @@ if [ -n "$diskdevs" ] && [ -z "$DISK_MODE" ]; then
 		_crypt=$([ -z "$USE_CRYPT" ] && [ -z "$USE_LVM" ] && echo ", 'crypt'")
 		_lvm=${USE_LVM:-", 'lvm'"}
 		printf "\n"
-		ask "How would you like to use $it_them? ('sys', cryptsys or '?' for help)" "?"
+		ask "How would you like to use $it_them? (sys, cryptsys or '?' for help)" "?"
 		case "$resp" in
 		'?') diskmode_help;;
 		sys) break;;
@@ -1453,6 +1463,5 @@ write_disk_mode
 case "$DISK_MODE" in
 sys) native_disk_install$USE_LVM $diskdevs;;
 data) data_only_disk_install$USE_LVM $diskdevs;;
-none) exit 0;;
 *) die "Not a valid install mode: $DISK_MODE" ;;
 esac

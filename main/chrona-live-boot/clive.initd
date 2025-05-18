@@ -143,6 +143,11 @@ start() {
 
 stop() {
     ebegin "Stopping chrona-live session service"
-    # Perform session termination tasks
-    eend $?
+    pkill -u chrona-live -f startx
+    ret=$?
+    if [ $ret -eq 0 ] || [ $ret -eq 1 ]; then
+        eend 0
+    else
+        eend $ret
+    fi
 }

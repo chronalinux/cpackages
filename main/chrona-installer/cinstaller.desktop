@@ -2,7 +2,7 @@
 Name=Chrona Installer
 Comment=Chrona Linux Installer
 GenericName=Chrona Linux Installer
-Exec=xterm -fullscreen -e sudo sh -c 'rc-service clive stop >/dev/null 2>&1 && chronainstaller'
+Exec=xterm -fullscreen -e sudo sh -c 'openvt -s -- sh -c "busybox killall Xorg && rc-service clive stop >/dev/null 2>&1 && rc-update del clive default >/dev/null 2>&1 && setup-devd -C mdev >/dev/null 2>&1 && exec /usr/sbin/chronainstaller"'
 Icon=/usr/share/chrona/chrona-installer64.png
 Type=Application
 StartupNotify=false

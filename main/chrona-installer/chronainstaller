@@ -268,7 +268,7 @@ fi
 echo
 print_heading2 " APK Mirror"
 print_heading2 "------------"
-setup-apkrepos ${APKREPOSOPTS}
+capkrepos ${APKREPOSOPTS}
 
 # Now that network and apk are operational we can install another device manager
 if [ "$rc_sys" != LXC ] && [ -n "$DEVDOPTS" -a "$DEVDOPTS" != mdev ]; then
@@ -283,7 +283,7 @@ fi
 echo
 print_heading2 " User"
 print_heading2 "------"
-setup-user ${USERSSHKEY+-k "$USERSSHKEY"} ${USEROPTS:--a -g 'audio input video netdev'}
+ci-setup-user ${USERSSHKEY+-k "$USERSSHKEY"} ${USEROPTS:--a -g 'audio input video netdev'}
 for i in "$ROOT"home/*; do
 	if [ -d "$i" ]; then
 		lbu add $i
@@ -315,3 +315,4 @@ DEFAULT_DISK=none \
 
 diskmode=$(cat /tmp/alpine-install-diskmode.out 2>/dev/null)
 
+i=5; while [ $i -gt 0 ]; do echo "Rebooting in $i seconds..."; sleep 1; i=$((i-1)); done; reboot

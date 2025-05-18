@@ -29,6 +29,7 @@ depends="
     claws-mail
     mpv
     viewnior
+    slim
 "
 source="
     mainmenu.svg
@@ -39,7 +40,7 @@ source="
     cicewm.tar.gz
     theme
 "
-
+install="$pkgname.post-install"
 build() {
       return 0
 }
