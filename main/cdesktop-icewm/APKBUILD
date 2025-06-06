@@ -13,8 +13,9 @@ depends="
     xf86-input-libinput
     xinit
     eudev
-    volumeicon
-    alsa-utils
+    pasystray
+    pulseaudio
+    pulseaudio-alsa
     mesa-dri-gallium
     cnetwork
     dillo
