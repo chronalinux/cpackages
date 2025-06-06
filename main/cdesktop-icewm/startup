@@ -1,4 +1,4 @@
 #!/bin/sh
 pcmanfm --desktop &
-volumeicon
+pasystray
 
