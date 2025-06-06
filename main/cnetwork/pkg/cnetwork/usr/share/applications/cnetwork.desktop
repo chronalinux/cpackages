@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=CNetwork
+Comment=Chrona Linux Network Manager
+GenericName=Network Manager
+Exec=cnetwork
+Icon=nm-device-wireless
+Type=Application
+StartupNotify=false
+StartupWMClass=cnetwork
+Categories=Network;Settings;
+MimeType=application/x-cnetwork-workspace
+Keywords=cnetwork;network;manager;chrona

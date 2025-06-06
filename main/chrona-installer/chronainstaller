@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PROGRAM=setup-chrona
+PROGRAM=chronainstaller
 VERSION=1.02
 
 PREFIX=/usr
@@ -266,11 +266,19 @@ if ! is_kvm_clock && [ "$rc_sys" != "LXC" ] && [ "$quick" != 1 ]; then
 fi
 
 echo
-print_heading2 " APK Mirror"
-print_heading2 "------------"
-capkrepos ${APKREPOSOPTS}
-
-# Now that network and apk are operational we can install another device manager
+echo
+print_heading2 "Network Check"
+print_heading2 "-------------"
+if ping -c1 -W1 8.8.8.8 >/dev/null 2>&1; then
+    echo "Network detected, configuring APK mirror…"
+    
+    echo
+    print_heading2 "APK Mirror"
+    print_heading2 "----------"
+    capkrepos ${APKREPOSOPTS}
+else
+    echo "Warning: No network detected, skipping APK mirror setup."
+fi
 if [ "$rc_sys" != LXC ] && [ -n "$DEVDOPTS" -a "$DEVDOPTS" != mdev ]; then
 	setup-devd ${DEVDOPTS}
 fi
@@ -315,4 +323,6 @@ DEFAULT_DISK=none \
 
 diskmode=$(cat /tmp/alpine-install-diskmode.out 2>/dev/null)
 
+echo "Press any key to Rebooting in 5 seconds..."
+read -s -n 1
 i=5; while [ $i -gt 0 ]; do echo "Rebooting in $i seconds..."; sleep 1; i=$((i-1)); done; reboot

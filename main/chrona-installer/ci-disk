@@ -263,97 +263,42 @@ find_efi_directory() {
 }
 
 
-
-
-
 extract_live_root_to_target() {
-    local SBB="$BB"
-    command -v busybox >/dev/null 2>&1 || SBB=""
-    local USE_QUIET=0
-    command -v quiet >/dev/null 2>&1 && USE_QUIET=1
+    set -e
+    [ "$#" -eq 1 ] || { echo "Usage: $0 <TARGET_DIR>" >&2; exit 1; }
 
-    local TARGET_DIR="$1"
+    TARGET_DIR="$1"
+    [ -d "$TARGET_DIR" ] || { echo "Error: Target directory '$TARGET_DIR' does not exist." >&2; exit 1; }
 
-    if [ -z "$TARGET_DIR" ]; then
-        echo "Error: Target directory not specified." >&2
-        return 1
-    fi
+    echo "[INFO] Starting rsync of live root system to '$TARGET_DIR'"
 
-    if [ ! -d "$TARGET_DIR" ]; then
-        echo "Error: Target directory '$TARGET_DIR' not found or invalid." >&2
-        return 1
-    fi
+    # rsync options: archive, hard links, preserve ACL, xattrs, numeric IDs, single filesystem, progress
+    RSYNC_OPTS="-aHAX --numeric-ids --one-file-system --info=progress2"
+    EXCLUDES="--exclude=/proc --exclude=/sys --exclude=/dev --exclude=/run \
+              --exclude=/tmp --exclude=/mnt --exclude=/media --exclude=/cdrom \
+              --exclude=/live --exclude=/overlay --exclude=/lower \
+              --exclude=/initrd --exclude=/lost+found --exclude=$TARGET_DIR"
 
-    echo "Copying live system root ('/') to target disk ('$TARGET_DIR')..."
-    echo "Detailed progress will be shown below:"
+    rsync $RSYNC_OPTS $EXCLUDES / "$TARGET_DIR/"
+    echo "[OK] Transfer completed successfully."
 
-    local rsync_cmd="rsync -aHAX --info=progress2 --info=name0"
-    local excludes="--exclude=/proc --exclude=/sys --exclude=/dev --exclude=/run --exclude=/tmp --exclude=/mnt --exclude=/media --exclude=/cdrom --exclude=/live --exclude=/overlay --exclude=/lower --exclude=/initrd --exclude=/lost+found --exclude=${TARGET_DIR}"
+    echo "[INFO] Creating essential mount point directories..."
+    for dir in proc sys dev dev/pts dev/shm run tmp mnt media; do
+        mkdir -p "$TARGET_DIR/$dir"
+    done
+    echo "[OK] Mount point directories are ready."
 
+    echo "[INFO] Removing installer packages..."
+    PACKAGES="chrona-live-boot chrona-installer chrona-installer-gui"
+    for pkg in $PACKAGES; do
+        if chroot "$TARGET_DIR" /bin/sh -c "apk info -e $pkg" >/dev/null 2>&1; then
+            printf "- Removing %s... " "$pkg"
+            chroot "$TARGET_DIR" /bin/sh -c "apk del --no-cache --progress $pkg"
+            [ $? -eq 0 ] && echo "OK" || echo "ERROR"
+        fi
+    done
 
-    if ! $rsync_cmd $excludes / "${TARGET_DIR}/"; then
-        local RSYNC_EXIT_STATUS=$?
-        echo "Error: rsync copy failed (exit status: $RSYNC_EXIT_STATUS)!" >&2
-        return 1
-    fi
-
-    echo "Live system root copy complete."
-
-    echo "Checking/creating essential system directories on target..."
-    if [ "$USE_QUIET" -eq 1 ]; then
-        quiet $SBB mkdir -p "${TARGET_DIR}/proc"
-        quiet $SBB mkdir -p "${TARGET_DIR}/sys"
-        quiet $SBB mkdir -p "${TARGET_DIR}/dev"
-        quiet $SBB mkdir -p "${TARGET_DIR}/dev/pts"
-        quiet $SBB mkdir -p "${TARGET_DIR}/dev/shm"
-        quiet $SBB mkdir -p "${TARGET_DIR}/run"
-        quiet $SBB mkdir -p "${TARGET_DIR}/tmp"
-        quiet $SBB mkdir -p "${TARGET_DIR}/mnt"
-        quiet $SBB mkdir -p "${TARGET_DIR}/media"
-    else
-        $SBB mkdir -p "${TARGET_DIR}/proc"
-        $SBB mkdir -p "${TARGET_DIR}/sys"
-        $SBB mkdir -p "${TARGET_DIR}/dev"
-        $SBB mkdir -p "${TARGET_DIR}/dev/pts"
-        $SBB mkdir -p "${TARGET_DIR}/dev/shm"
-        $SBB mkdir -p "${TARGET_DIR}/run"
-        $SBB mkdir -p "${TARGET_DIR}/tmp"
-        $SBB mkdir -p "${TARGET_DIR}/mnt"
-        $SBB mkdir -p "${TARGET_DIR}/media"
-    fi
-    echo "Essential directories checked/created."
-  local PACKAGES="chrona-live-boot chrona-installer chrona-installer-gui"
-
-  for pkg in $PACKAGES; do
-    # 1) Check if $pkg is installed inside chroot
-    $SBB chroot "$TARGET_DIR" /bin/sh -c "apk info -e $pkg" >/dev/null 2>&1
-    if [ $? -eq 0 ]; then
-      printf "Removing %s… " "$pkg"
-
-      # 2) Remove it quietly or with progress
-      if [ "$USE_QUIET" -eq 1 ]; then
-        quiet $SBB chroot "$TARGET_DIR" /bin/sh -c \
-          "apk del --no-cache --progress $pkg"
-      else
-        $SBB chroot "$TARGET_DIR" /bin/sh -c \
-          "apk del --no-cache --progress $pkg"
-      fi
-      EXIT_STATUS=$?
-
-      # 3) Report the result
-      if [ "$EXIT_STATUS" -ne 0 ]; then
-        echo "ERROR (code $EXIT_STATUS)"
-      else
-        echo "OK"
-      fi
-    else
-      echo "Skipping $pkg (not installed)."
-    fi
-  done
-
-    echo "Live system packages successfully removed."
-
-    return 0
+    echo "[SUCCESS] Live root copy and cleanup complete."
 }
 
 setup_grub() {

@@ -7,7 +7,7 @@ url="https://chronalinux.org.tr"
 arch="all"
 license="MIT"
 depends="sudo fltk iproute2 wireless-tools wpa_supplicant dhcpcd"
-makedepends="build-base fltk-dev pkgconf"
+makedepends="build-base pkgconf musl-dev fltk-dev g++"
 source="cnetwork.desktop main.cpp"
 options="!strip !check"
 

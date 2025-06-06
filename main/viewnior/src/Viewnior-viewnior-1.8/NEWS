@@ -1,0 +1,189 @@
+Viewnior 1.8
+------------
+
+New features included:
+ - Add Preview to the Open Image dialog
+ - Add "Best Fit" option to the right-click context menu
+ - Expand list of image info in the Property window (Description, Comment, Software)
+ - Add hideable statusbar showing the same info as the titlebar
+ - Increase size of the Crop Image window
+ - Updated translations
+
+Fixed:
+ - Don't allow drag and drop if source is the viewer itself
+ - Better error handling when loading preferences
+ - Properly escape file names displayed in the Delete popup
+ - Remove 1px white gap when the menu and the toolbar are hidden
+ - Memory leaks and UB
+
+Viewnior 1.7
+------------
+
+New features included:
+ - Show image dimensions to title bar
+ - Add option to hide the scrollbars
+ - Wallpaper support for Cinnamon, Puppylinux, and autodetect DE
+ - Updated translations
+
+Fixed:
+ - Setting wallpaper on XFCE 4.12+ and MATE
+
+Misc:
+ - Move to the Meson Build system
+
+Viewnior 1.6
+------------
+
+New features included:
+ - Support back & forward buttons on your mouse
+
+Fixed:
+ - Mouse scroll behaviour and actions settings
+
+Viewnior 1.5
+------------
+
+New features included:
+ - Disable Wallpaper support during compilation
+ - Updated translations
+
+Fixed:
+ - Preferences menu position
+ - Nitrogen wallpaper support
+
+Viewnior 1.4
+------------
+
+New features included:
+ - Read EXIF and IPTC metadata
+ - Nitrogen support
+ - Updated translations
+
+Fixed:
+ - Preserve metadata after image modification
+ - Rendidering artifacts when panning
+
+Viewnior 1.3
+------------
+
+New features included:
+ - Wallpaper support for LXDE
+ - Hebrew translation
+
+Fixed:
+ - Wallpaper support for XFCE
+ - Minor fixes
+ 
+Viewnior 1.2
+------------
+
+New features included:
+ - Improved menu interface
+ - Wallpaper support for Gnome 2, Gnome 3, XFCE and FluxBox
+ - --fullscreen argument to start in Fullscreen mode
+
+Fixed:
+ - Drop images with right click
+ - Save 'Auto resize' option between sessions
+
+Viewnior 1.1
+------------
+
+New features included:
+ - Full Drag'n'Drop support
+ - Toggle window autoresize after image load
+ - Remember window state (maximized) between startups
+ - Add "Last Used Mode" zoom option
+ - --slideshow argument to start in Slideshow mode
+ - Gnome 3.0 ready 
+
+Fixed:
+ - Remove deprecated gtk+/glib symbols
+ - .desktop entry issue
+
+Viewnior 1.0
+------------
+
+Fixed:
+ - After cropping make the save action sensitive
+ - Rendering issues under Ubuntu 9.10
+ - Show position/total images in fullscreen view
+ - Interface modifications/fixes
+
+Viewnior 0.7
+------------
+
+New features included:
+ - Simple Crop functionality
+ - "Open With" menu
+ - Show/hide the toolbar
+ - New mouse wheel action - "Scroll image up/down"
+
+Fixed:
+ - Honor image orientation metadata
+ - Fix #415022: Custom assigned keybindings don't get saved
+ - Fix #422507: Image height displayed incorrectly
+
+Viewnior 0.6
+------------
+
+New features included:
+ - Properties dialog
+ - Preferences dialog
+ - Configurable mouse actions
+
+Fixed:
+ - Many User Interface fixes
+ - Fix unaccurate double-click zooming
+
+Viewnior 0.5
+------------
+
+New features included:
+ - Rotate and flip images
+ - Autohide toolbar and cursor in fullscreen mode
+ - Popup (right-click) menu
+
+Fixed:
+ - "Fit to window" really works (scales above than 1:1)
+
+Viewnior 0.4
+------------
+
+New features included:
+ - Drag'n'Drop
+ - SetAsWallpaper
+   (optional / only for Gnome)
+ - Add "Open Image" and "Open Folder"
+   to the File menu
+ - Add "Delete" to the File menu
+ - Fullscreen and Slideshow
+
+Fixed:
+ - Multiple little code fixes
+
+Viewnior 0.3
+------------
+
+New features included:
+ - Translations
+ - File Navigation
+ - UI - menu and toolbar
+
+Fixed:
+ - Message area now complete
+ - Icon now better in small sizes
+ - Maximum width and height
+
+Viewnior 0.2
+------------
+
+New features included:
+ - New icon - big red V
+ - Message area, where warnings pop.
+ - --version argument available.
+
+Viewnior 0.1
+------------
+
+First release of Viewnior.

@@ -1,0 +1,52 @@
+# ~/.icewm/preferences - TAM YAPILANDIRMA
+# ==================================================
+# ÇEKİRDEK AYARLAR
+#
+WorkspaceNames=" 1 "          # Tek çalışma alanı
+QuickSwitch=0                 # Pencere geçiş efektleri kapalı
+FocusMode=2                   # Sıkı odak yönetimi (CLICKTOFOCUS)
+HonorOrigin=1                 # Pencere pozisyonunu koru
+EdgeResistance=200            # Ekran kenarı direnci
+
+# ==================================================
+# PERFORMANS OPTİMİZASYONU
+#
+UseComposite=0                # Compositing kapalı
+ShowBlend=0                   # Animasyon yok
+ShowSplash=0                  # Açılış ekranı kapalı
+TaskBarClockLeds=0            # Saat LED efekti yok
+TaskBarShowAPM=0              # Pil göstergesi kapalı
+TaskBarShowCPUStatus=0        # CPU göstergesi kapalı
+TaskBarShowMailboxStatus=0    # Posta bildirimi kapalı
+TaskBarShowWindowListMenu=0   # Pencere listesi menüsü kapalı
+
+# ==================================================
+# MODERN GÖRÜNÜM
+#
+
+DesktopBackgroundImage="/usr/share/cdesktop/wallpapers/chrona25-04.png"  # Arka plan resmi
+DesktopBackgroundScaled=1     # Resmi ekrana sığdır
+
+# ==================================================
+# GÖREV ÇUBUĞU ve SİSTEM ÇEKMECESİ
+#
+TaskBarShowTray=1             # Sistem çekmecesi aktif
+TaskBarShowShowDesktopButton=1 # Masaüstünü göster butonu
+TaskBarButtonless=0           # Görev çubuğunda uygulama butonları
+TaskBarShowWorkspaces=0       # Çalışma alanı düğmeleri kapalı
+NotificationArea=1            # Bildirim alanı aktif
+TrayNotifyd=1                 # Sistem bildirimleri açık
+
+# ==================================================
+# PENCERE YÖNETİMİ
+#
+OperateOnScreen=1             # Pencereleri ekran içinde tut
+SnapMove=1                    # Pencere kenetleme aktif
+SnapResize=1                  # Boyutlandırma kenetleme
+ShowAllWindows=1              # Tüm pencereleri göster
+
+# ==================================================
+# KLASÖR ve UYGULAMA YOLLARI
+#
+PathApplications="/usr/share/applications:/usr/local/share/applications"
+PathIcons="/usr/share/icons:/usr/share/pixmaps"

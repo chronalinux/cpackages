@@ -1,0 +1,9 @@
+#!/bin/sh
+FLAGFILE="$HOME/.cache/spacefm_wallpaper_set"
+
+if [ ! -f "$FLAGFILE" ]; then
+    spacefm --set-wallpaper /usr/share/cdesktop/wallpapers/chrona25-04.png
+    touch "$FLAGFILE"
+fi
+
+exit 0

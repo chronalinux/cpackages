@@ -1,0 +1,630 @@
+# Italian translation for viewnior
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the viewnior package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: viewnior\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"PO-Revision-Date: 2012-07-08 09:34+0000\n"
+"Last-Translator: Leonardo Corato <leocor@gmail.com>\n"
+"Language-Team: Italian <it@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
+"X-Generator: Launchpad (build 18566)\n"
+
+#: ../data/viewnior.desktop.in.in.h:1
+msgid "Viewnior"
+msgstr "Viewnior"
+
+#: ../data/viewnior.desktop.in.in.h:2 ../src/vnr-window.c:1372
+msgid "Elegant Image Viewer"
+msgstr "Elegante Visualizzatore di Immagini"
+
+#: ../data/vnr-preferences-dialog.ui.h:1
+msgid "Viewnior Preferences"
+msgstr "Preferenze di Viewnior"
+
+#: ../data/vnr-preferences-dialog.ui.h:2
+msgid "Open new image in: "
+msgstr "Apri nuova immagine: "
+
+#: ../data/vnr-preferences-dialog.ui.h:3
+msgid "Desktop: "
+msgstr ""
+
+#: ../data/vnr-preferences-dialog.ui.h:4
+msgid "Smooth images when zoomed"
+msgstr "Sfuma immagini ingrandite"
+
+#: ../data/vnr-preferences-dialog.ui.h:5
+msgid "Confirm image deletion"
+msgstr "Conferma"
+
+#: ../data/vnr-preferences-dialog.ui.h:6
+msgid "Show hidden images"
+msgstr "Mostra immagini nascoste"
+
+#: ../data/vnr-preferences-dialog.ui.h:7
+msgid "General"
+msgstr "Generale"
+
+#: ../data/vnr-preferences-dialog.ui.h:8
+msgid "Show next image after (in seconds): "
+msgstr "Mostra immagine successiva dopo (secondi): "
+
+#: ../data/vnr-preferences-dialog.ui.h:9
+msgid "Always expand images to fit screen"
+msgstr "Adatta sempre le immagini alla finestra"
+
+#: ../data/vnr-preferences-dialog.ui.h:10
+msgid "Fullscreen"
+msgstr "Schermo intero"
+
+#: ../data/vnr-preferences-dialog.ui.h:11
+msgid "On mouse wheel: "
+msgstr "Rotella del mouse: "
+
+#: ../data/vnr-preferences-dialog.ui.h:12
+msgid "On double click: "
+msgstr "Doppio click: "
+
+#: ../data/vnr-preferences-dialog.ui.h:13
+msgid "On image modification: "
+msgstr "Alla modifica dell'immagine: "
+
+#: ../data/vnr-preferences-dialog.ui.h:14
+msgid ""
+"<small>  (!) Navigating images with double click :\n"
+"  Clicking on the left half of the window shows the\n"
+"  previous image and on the right side - the next.</small> "
+msgstr ""
+"<small>  (!) Scorri le immagini col doppio click :\n"
+"  Clicando sulla metà finestra di sinistra mostra\n"
+"  l'immagine precedente, e sulla destra la seguente.</small> "
+
+#: ../data/vnr-preferences-dialog.ui.h:17
+msgid "Behavior"
+msgstr "Comportamento"
+
+#: ../data/vnr-preferences-dialog.ui.h:18
+msgid "Reload image on save"
+msgstr "Ricarica immagine dopo il salvataggio"
+
+#: ../data/vnr-preferences-dialog.ui.h:19
+msgid "JPEG quality:"
+msgstr "Qualità JPEG:"
+
+#: ../data/vnr-preferences-dialog.ui.h:20
+msgid "PNG compression:"
+msgstr "Compressione PNG:"
+
+#: ../data/vnr-preferences-dialog.ui.h:21
+msgid "Saving"
+msgstr "Salvataggio"
+
+#: ../data/vnr-crop-dialog.ui.h:1
+msgid "Crop Image"
+msgstr "Ritaglia immagine"
+
+#: ../data/vnr-crop-dialog.ui.h:2
+msgid "X: "
+msgstr "X: "
+
+#: ../data/vnr-crop-dialog.ui.h:3
+msgid "Y: "
+msgstr "Y: "
+
+#: ../data/vnr-crop-dialog.ui.h:4
+msgid "Width: "
+msgstr "Larghezza: "
+
+#: ../data/vnr-crop-dialog.ui.h:5
+msgid "Height: "
+msgstr "Altezza: "
+
+#: ../data/vnr-crop-dialog.ui.h:6 ../src/vnr-window.c:1816
+msgid "Crop"
+msgstr "Ritaglia"
+
+#: ../src/main.c:117 ../src/vnr-window.c:1620 ../src/vnr-window.c:1975
+#: ../src/vnr-window.c:2414
+msgid "The given locations contain no images."
+msgstr "La posizione fornita non contiene alcuna immagine."
+
+#: ../src/uni-scroll-win.c:223
+msgid "Open the navigator window"
+msgstr "Apri finestra di navigazione"
+
+#: ../src/vnr-file.c:223
+#, c-format
+msgid ""
+"Couldn't recognise the image file\n"
+"format for file '%s'"
+msgstr ""
+"Non riconosco il formato dell'immagine\n"
+"del file '%s'"
+
+#: ../src/vnr-prefs.c:260
+msgid "Smart Mode"
+msgstr "Modalità Intelligente"
+
+#: ../src/vnr-prefs.c:261
+msgid "1:1 Mode"
+msgstr "Scala 1:1"
+
+#: ../src/vnr-prefs.c:262
+msgid "Fit To Window Mode"
+msgstr "Adattato a finestra"
+
+#: ../src/vnr-prefs.c:263
+msgid "Last Used Mode"
+msgstr ""
+
+#: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
+msgid "Navigate images"
+msgstr "Scorri Immagini"
+
+#: ../src/vnr-prefs.c:293
+msgid "Zoom image"
+msgstr "Ingrandisci immagine"
+
+#: ../src/vnr-prefs.c:294
+msgid "Scroll image up/down"
+msgstr "Scorri immagine su/giù"
+
+#: ../src/vnr-prefs.c:302
+msgid "Switch zoom modes"
+msgstr "Alterna modo ingrandimento"
+
+#: ../src/vnr-prefs.c:303
+msgid "Enter fullscreen mode"
+msgstr "Attiva modalità a schermo intero"
+
+#: ../src/vnr-prefs.c:312
+msgid "Ask every time"
+msgstr "Chiedi ogni volta"
+
+#: ../src/vnr-prefs.c:313
+msgid "Autosave"
+msgstr "Salvataggio automatico"
+
+#: ../src/vnr-prefs.c:314
+msgid "Ignore changes"
+msgstr "Ignora modifiche"
+
+#: ../src/vnr-properties-dialog.c:112
+msgid "_Next"
+msgstr "_Successivo"
+
+#: ../src/vnr-properties-dialog.c:113
+msgid "_Previous"
+msgstr "_Precedente"
+
+#: ../src/vnr-properties-dialog.c:128
+msgid "Image Properties"
+msgstr "Proprietà immagine"
+
+#: ../src/vnr-properties-dialog.c:136
+msgid "<b>Location:</b>"
+msgstr "<b>Posizione:</b>"
+
+#: ../src/vnr-properties-dialog.c:185
+msgid "<b>Name:</b>"
+msgstr "<b>Nome:</b>"
+
+#: ../src/vnr-properties-dialog.c:189
+msgid "<b>Type:</b>"
+msgstr "<b>Tipo:</b>"
+
+#: ../src/vnr-properties-dialog.c:193
+msgid "<b>Size:</b>"
+msgstr "<b>Dimensione:</b>"
+
+#: ../src/vnr-properties-dialog.c:197
+msgid "<b>Width:</b>"
+msgstr "<b>Larghezza:</b>"
+
+#: ../src/vnr-properties-dialog.c:201
+msgid "<b>Height:</b>"
+msgstr "<b>Altezza:</b>"
+
+#: ../src/vnr-properties-dialog.c:373 ../src/vnr-properties-dialog.c:374
+#: ../src/vnr-properties-dialog.c:375 ../src/vnr-properties-dialog.c:376
+#: ../src/vnr-properties-dialog.c:377 ../src/vnr-properties-dialog.c:378
+msgid "None"
+msgstr "Nessuno"
+
+#: ../src/vnr-window.c:297
+#, c-format
+msgid "Use \"%s\" to open the selected image"
+msgstr "Usa \"%s\" per aprire l'immagine selezionata"
+
+#: ../src/vnr-window.c:467
+msgid "Show next image after: "
+msgstr "Mostra immagine successiva dopo: "
+
+#: ../src/vnr-window.c:485 ../src/vnr-window.c:902
+msgid " second"
+msgid_plural " seconds"
+msgstr[0] " secondo"
+msgstr[1] " secondi"
+
+#: ../src/vnr-window.c:727 ../src/vnr-window.c:790
+msgid "Not enough virtual memory."
+msgstr "Memoria virtuale non sufficiente."
+
+#: ../src/vnr-window.c:761 ../src/vnr-window.c:819 ../src/vnr-window.c:1706
+msgid ""
+"Image modifications cannot be saved.\n"
+"Writing in this format is not supported."
+msgstr ""
+"Le modifiche all'immagine non possono essere salvate.\n"
+"La scrittura in questo formato non è supportata."
+
+#: ../src/vnr-window.c:768 ../src/vnr-window.c:826 ../src/vnr-window.c:1713
+msgid ""
+"Save modifications?\n"
+"This will overwrite the image and may reduce its quality!"
+msgstr ""
+
+#: ../src/vnr-window.c:1271
+msgid "Open Image"
+msgstr "Apri immagine"
+
+#: ../src/vnr-window.c:1282
+msgid "All Images"
+msgstr ""
+
+#: ../src/vnr-window.c:1288
+msgid "All Files"
+msgstr ""
+
+#: ../src/vnr-window.c:1318
+msgid "Open Folder"
+msgstr "Apri Cartella"
+
+#: ../src/vnr-window.c:1378
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Leonardo Corato https://launchpad.net/~leocor\n"
+"  Milo Casagrande https://launchpad.net/~milo\n"
+"  Vito Fasano https://launchpad.net/~vito.fasano\n"
+"  bautz https://launchpad.net/~bautz"
+
+#: ../src/vnr-window.c:1558
+msgid "If you delete an item, it will be permanently lost."
+msgstr "Se cancelli un'elemento, sarà perso per sempre."
+
+#. I18N: The '%s' is replaced with the name of the file to be deleted.
+#: ../src/vnr-window.c:1561
+#, c-format
+msgid ""
+"Are you sure you want to\n"
+"permanently delete \"%s\"?"
+msgstr ""
+"Sei sicuro di voler cancellare\n"
+"per sempre \"%s\"?"
+
+#: ../src/vnr-window.c:1721
+msgid "_File"
+msgstr "_File"
+
+#: ../src/vnr-window.c:1722
+msgid "_Edit"
+msgstr "_Modifica"
+
+#: ../src/vnr-window.c:1723
+msgid "_View"
+msgstr "_Visualizza"
+
+#: ../src/vnr-window.c:1724
+msgid "_Image"
+msgstr "_Immagine"
+
+#: ../src/vnr-window.c:1725
+msgid "_Go"
+msgstr "_Vai"
+
+#: ../src/vnr-window.c:1726
+msgid "_Help"
+msgstr "_Aiuto"
+
+#: ../src/vnr-window.c:1728
+msgid "Open _Image..."
+msgstr "Apri _Immagine..."
+
+#: ../src/vnr-window.c:1729
+msgid "Open an Image"
+msgstr "Apri un'Immagine"
+
+#: ../src/vnr-window.c:1731
+msgid "Open _Folder..."
+msgstr "Apri _Cartella..."
+
+#: ../src/vnr-window.c:1732
+msgid "Open a Folder"
+msgstr "Apri una Cartella"
+
+#: ../src/vnr-window.c:1734
+msgid "_Close"
+msgstr "_Chiudi"
+
+#: ../src/vnr-window.c:1735
+msgid "Close window"
+msgstr "Chiudi finestra"
+
+#: ../src/vnr-window.c:1737
+msgid "_About"
+msgstr "I_nformazioni"
+
+#: ../src/vnr-window.c:1738
+msgid "About this application"
+msgstr "Informazioni sull'applicazione"
+
+#: ../src/vnr-window.c:1740
+msgid "_Preferences..."
+msgstr "_Preferenze..."
+
+#: ../src/vnr-window.c:1741
+msgid "User preferences for Viewnior"
+msgstr "Preferenze utente per Viewnior"
+
+#: ../src/vnr-window.c:1746
+msgid "_Save"
+msgstr "_Salva"
+
+#: ../src/vnr-window.c:1747
+msgid "Save changes"
+msgstr "Salva modifiche"
+
+#: ../src/vnr-window.c:1752
+msgid "_Properties"
+msgstr ""
+
+#: ../src/vnr-window.c:1753
+msgid "Properties"
+msgstr ""
+
+#: ../src/vnr-window.c:1758
+msgid "Set as _Wallpaper"
+msgstr "Imposta come _Sfondo"
+
+#: ../src/vnr-window.c:1759
+msgid "Set the selected image as the desktop background"
+msgstr "Imposta l'immagine selezionata come sfondo della scrivania"
+
+#: ../src/vnr-window.c:1764
+msgid "Open _With"
+msgstr "Apri _con"
+
+#: ../src/vnr-window.c:1765
+msgid "Open the selected image with a different application"
+msgstr "Apre l'immagine selezionata con una diversa applicazione"
+
+#: ../src/vnr-window.c:1767 ../src/vnr-window.c:1776
+msgid "_Delete"
+msgstr "_Elimina"
+
+#: ../src/vnr-window.c:1768 ../src/vnr-window.c:1777
+msgid "Delete the current file"
+msgstr "Elimina il file corrente"
+
+#: ../src/vnr-window.c:1770
+msgid "_Properties..."
+msgstr "_Proprietà..."
+
+#: ../src/vnr-window.c:1771
+msgid "Show information about the current file"
+msgstr "Mostra le informazioni sul file attuale"
+
+#: ../src/vnr-window.c:1773
+msgid "_Reload"
+msgstr "_Ricarica"
+
+#: ../src/vnr-window.c:1774
+msgid "Reload the current file"
+msgstr "Ricarica il file corrente"
+
+#: ../src/vnr-window.c:1779 ../src/vnr-window.c:1791 ../src/vnr-window.c:1794
+msgid "_Zoom In"
+msgstr "Aum_enta ingrandimento"
+
+#: ../src/vnr-window.c:1780
+msgid "Enlarge the image"
+msgstr "Ingrandisci l'immagine"
+
+#: ../src/vnr-window.c:1782 ../src/vnr-window.c:1797
+msgid "Zoom _Out"
+msgstr "Rid_uci ingrandimento"
+
+#: ../src/vnr-window.c:1783 ../src/vnr-window.c:1792 ../src/vnr-window.c:1795
+#: ../src/vnr-window.c:1798
+msgid "Shrink the image"
+msgstr "Rimpicciolisce l'immagine"
+
+#: ../src/vnr-window.c:1785
+msgid "_Normal Size"
+msgstr "Dimensione _Normale"
+
+#: ../src/vnr-window.c:1786
+msgid "Show the image at its normal size"
+msgstr "Mostra l'immagine alla sua dimensione normale"
+
+#: ../src/vnr-window.c:1788
+msgid "Best _Fit"
+msgstr "_Adatta"
+
+#: ../src/vnr-window.c:1789
+msgid "Fit the image to the window"
+msgstr "Adatta l'immagine alla finestra"
+
+#: ../src/vnr-window.c:1803
+msgid "Rotate _Clockwise"
+msgstr "Ruota _Orario"
+
+#: ../src/vnr-window.c:1804
+msgid "Rotate image clockwise"
+msgstr "Ruota in senso orario"
+
+#: ../src/vnr-window.c:1806
+msgid "Rotate _Anti-clockwise"
+msgstr "Ruota _Antiorario"
+
+#: ../src/vnr-window.c:1807
+msgid "Rotate image anti-clockwise"
+msgstr "Ruota in senso antiorario"
+
+#: ../src/vnr-window.c:1809
+msgid "Flip _Vertical"
+msgstr "Rifletti _verticalmente"
+
+#: ../src/vnr-window.c:1810
+msgid "Flip image vertically"
+msgstr "Rifletti l'immgine in verticale"
+
+#: ../src/vnr-window.c:1812
+msgid "Flip _Horizontal"
+msgstr "Rifletti _orizzontalmente"
+
+#: ../src/vnr-window.c:1813
+msgid "Flip image horizontally"
+msgstr "Rifletti l'immagine in orizzontale"
+
+#: ../src/vnr-window.c:1815
+msgid "Crop..."
+msgstr "Ritaglia..."
+
+#: ../src/vnr-window.c:1821
+msgid "Full _Screen"
+msgstr "Sc_hermo Intero"
+
+#: ../src/vnr-window.c:1822
+msgid "Show in fullscreen mode"
+msgstr "Visualizza a schermo intero"
+
+#: ../src/vnr-window.c:1824
+msgid "_Adjust window size"
+msgstr "Adatta dimensione _Finestra"
+
+#: ../src/vnr-window.c:1825
+msgid "Adjust window size to fit the image"
+msgstr "Adatta dimensone finestra all'immagine"
+
+#: ../src/vnr-window.c:1830
+msgid "Menu Bar"
+msgstr ""
+
+#: ../src/vnr-window.c:1831
+msgid "Show Menu Bar"
+msgstr ""
+
+#: ../src/vnr-window.c:1833
+msgid "Toolbar"
+msgstr "Barra degli strumenti"
+
+#: ../src/vnr-window.c:1834
+msgid "Show Toolbar"
+msgstr "Mostra barra strumenti"
+
+#: ../src/vnr-window.c:1839
+msgid "Sli_deshow"
+msgstr "_Diapositive"
+
+#: ../src/vnr-window.c:1840
+msgid "Show in slideshow mode"
+msgstr "Mostra presentazione immagini"
+
+#: ../src/vnr-window.c:1845
+msgid "_Previous Image"
+msgstr "Immagine pr_ecedente"
+
+#: ../src/vnr-window.c:1846
+msgid "Go to the previous image of the collection"
+msgstr "Va all'immagine precedente della raccolta"
+
+#: ../src/vnr-window.c:1848
+msgid "_Next Image"
+msgstr "Immagine _successiva"
+
+#: ../src/vnr-window.c:1849
+msgid "Go to the next image of the collection"
+msgstr "Va all'immagine successiva della raccolta"
+
+#: ../src/vnr-window.c:1851
+msgid "_First Image"
+msgstr "_Prima immagine"
+
+#: ../src/vnr-window.c:1852
+msgid "Go to the first image of the collection"
+msgstr "Va alla prima immagine della raccolta"
+
+#: ../src/vnr-window.c:1854
+msgid "_Last Image"
+msgstr "_Ultima immagine"
+
+#: ../src/vnr-window.c:1855
+msgid "Go to the last image of the collection"
+msgstr "Va all'ultima immagine della raccolta"
+
+#: ../src/uni-exiv2.hpp:49
+msgid "Camera make"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:50
+msgid "Camera model"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:51
+msgid "Date Taken"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:52
+msgid "Exposure time"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:53
+msgid "Exposure mode"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:54
+msgid "Aperture Value"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:55
+msgid "ISO speed"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:56
+msgid "Flash"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:57
+msgid "Metering mode"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:58
+msgid "Focal length"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:59
+msgid "Software"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:63
+msgid "Description"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:64
+msgid "Copyright"
+msgstr ""
+
+#: ../src/uni-exiv2.hpp:65
+msgid "Author"
+msgstr ""

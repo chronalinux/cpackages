@@ -1,0 +1,631 @@
+# Danish translation for viewnior
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the viewnior package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: viewnior\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"PO-Revision-Date: 2014-11-27 08:32+0000\n"
+"Last-Translator: Joe Hansen <Unknown>\n"
+"Language-Team: Danish <da@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
+"X-Generator: Launchpad (build 18566)\n"
+
+#: ../data/viewnior.desktop.in.in.h:1
+msgid "Viewnior"
+msgstr "Viewnior"
+
+#: ../data/viewnior.desktop.in.in.h:2 ../src/vnr-window.c:1372
+msgid "Elegant Image Viewer"
+msgstr "Elegant billedfremviser"
+
+#: ../data/vnr-preferences-dialog.ui.h:1
+msgid "Viewnior Preferences"
+msgstr "Viwenior-indstillinger"
+
+#: ../data/vnr-preferences-dialog.ui.h:2
+msgid "Open new image in: "
+msgstr "Åbn nyt billede i: "
+
+#: ../data/vnr-preferences-dialog.ui.h:3
+msgid "Desktop: "
+msgstr "Skrivebord: "
+
+#: ../data/vnr-preferences-dialog.ui.h:4
+msgid "Smooth images when zoomed"
+msgstr "Udjævn billeder når der zoomes"
+
+#: ../data/vnr-preferences-dialog.ui.h:5
+msgid "Confirm image deletion"
+msgstr "Bekræft sletning af billede"
+
+#: ../data/vnr-preferences-dialog.ui.h:6
+msgid "Show hidden images"
+msgstr "Vis skjulte billeder"
+
+#: ../data/vnr-preferences-dialog.ui.h:7
+msgid "General"
+msgstr "Generelt"
+
+#: ../data/vnr-preferences-dialog.ui.h:8
+msgid "Show next image after (in seconds): "
+msgstr "Vis næste billede efter (i sekunder): "
+
+#: ../data/vnr-preferences-dialog.ui.h:9
+msgid "Always expand images to fit screen"
+msgstr "Udvid altid billeder så de passer til skærmen"
+
+#: ../data/vnr-preferences-dialog.ui.h:10
+msgid "Fullscreen"
+msgstr "Fuldskærm"
+
+#: ../data/vnr-preferences-dialog.ui.h:11
+msgid "On mouse wheel: "
+msgstr "Ved musehjul: "
+
+#: ../data/vnr-preferences-dialog.ui.h:12
+msgid "On double click: "
+msgstr "Ved dobbeltklik: "
+
+#: ../data/vnr-preferences-dialog.ui.h:13
+msgid "On image modification: "
+msgstr "Ved ændring af billede: "
+
+#: ../data/vnr-preferences-dialog.ui.h:14
+msgid ""
+"<small>  (!) Navigating images with double click :\n"
+"  Clicking on the left half of the window shows the\n"
+"  previous image and on the right side - the next.</small> "
+msgstr ""
+"<small>  (!) Naviger blandt billeder med dobbeltklik:\n"
+"  Et klik på venstre side af vinduet viser det forrige\n"
+"  billede og på højre side - det næste.</small> "
+
+#: ../data/vnr-preferences-dialog.ui.h:17
+msgid "Behavior"
+msgstr "Opførsel"
+
+#: ../data/vnr-preferences-dialog.ui.h:18
+msgid "Reload image on save"
+msgstr "Genindlæs billeder når der gemmes"
+
+#: ../data/vnr-preferences-dialog.ui.h:19
+msgid "JPEG quality:"
+msgstr "JPEG-kvalitet:"
+
+#: ../data/vnr-preferences-dialog.ui.h:20
+msgid "PNG compression:"
+msgstr "PNG-komprimering:"
+
+#: ../data/vnr-preferences-dialog.ui.h:21
+msgid "Saving"
+msgstr "Gemmer"
+
+#: ../data/vnr-crop-dialog.ui.h:1
+msgid "Crop Image"
+msgstr "Beskær billede"
+
+#: ../data/vnr-crop-dialog.ui.h:2
+msgid "X: "
+msgstr "X: "
+
+#: ../data/vnr-crop-dialog.ui.h:3
+msgid "Y: "
+msgstr "Y: "
+
+#: ../data/vnr-crop-dialog.ui.h:4
+msgid "Width: "
+msgstr "Bredde: "
+
+#: ../data/vnr-crop-dialog.ui.h:5
+msgid "Height: "
+msgstr "Højde: "
+
+#: ../data/vnr-crop-dialog.ui.h:6 ../src/vnr-window.c:1816
+msgid "Crop"
+msgstr "Beskær"
+
+#: ../src/main.c:117 ../src/vnr-window.c:1620 ../src/vnr-window.c:1975
+#: ../src/vnr-window.c:2414
+msgid "The given locations contain no images."
+msgstr "De angivne steder indeholder ikke billeder."
+
+#: ../src/uni-scroll-win.c:223
+msgid "Open the navigator window"
+msgstr "Åbn navigatorvindue"
+
+#: ../src/vnr-file.c:223
+#, c-format
+msgid ""
+"Couldn't recognise the image file\n"
+"format for file '%s'"
+msgstr ""
+"Kunne ikke genkende billedfilen\n"
+"format for filen »%s«"
+
+#: ../src/vnr-prefs.c:260
+msgid "Smart Mode"
+msgstr "Smart-tilstand"
+
+#: ../src/vnr-prefs.c:261
+msgid "1:1 Mode"
+msgstr "1:1-tilstand"
+
+#: ../src/vnr-prefs.c:262
+msgid "Fit To Window Mode"
+msgstr "Tilpas til vindue-tilstand"
+
+#: ../src/vnr-prefs.c:263
+msgid "Last Used Mode"
+msgstr "Sidst anvendte tilstand"
+
+#: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
+msgid "Navigate images"
+msgstr "Naviger blandt billederne"
+
+#: ../src/vnr-prefs.c:293
+msgid "Zoom image"
+msgstr "Zoom billede"
+
+#: ../src/vnr-prefs.c:294
+msgid "Scroll image up/down"
+msgstr "Rul billede op/ned"
+
+#: ../src/vnr-prefs.c:302
+msgid "Switch zoom modes"
+msgstr "Skift zoom-tilstande"
+
+#: ../src/vnr-prefs.c:303
+msgid "Enter fullscreen mode"
+msgstr "Brug fuldskærm"
+
+#: ../src/vnr-prefs.c:312
+msgid "Ask every time"
+msgstr "Spørg hver gang"
+
+#: ../src/vnr-prefs.c:313
+msgid "Autosave"
+msgstr "Gem automatisk"
+
+#: ../src/vnr-prefs.c:314
+msgid "Ignore changes"
+msgstr "Ignorer ændringer"
+
+#: ../src/vnr-properties-dialog.c:112
+msgid "_Next"
+msgstr "_Næste"
+
+#: ../src/vnr-properties-dialog.c:113
+msgid "_Previous"
+msgstr "_Forrige"
+
+#: ../src/vnr-properties-dialog.c:128
+msgid "Image Properties"
+msgstr "Billedegenskaber"
+
+#: ../src/vnr-properties-dialog.c:136
+msgid "<b>Location:</b>"
+msgstr "<b>Placering:</b>"
+
+#: ../src/vnr-properties-dialog.c:185
+msgid "<b>Name:</b>"
+msgstr "<b>Navn:</b>"
+
+#: ../src/vnr-properties-dialog.c:189
+msgid "<b>Type:</b>"
+msgstr "<b>Type:</b>"
+
+#: ../src/vnr-properties-dialog.c:193
+msgid "<b>Size:</b>"
+msgstr "<b>Størrelse:</b>"
+
+#: ../src/vnr-properties-dialog.c:197
+msgid "<b>Width:</b>"
+msgstr "<b>Bredde:</b>"
+
+#: ../src/vnr-properties-dialog.c:201
+msgid "<b>Height:</b>"
+msgstr "<b>Højde:</b>"
+
+#: ../src/vnr-properties-dialog.c:373 ../src/vnr-properties-dialog.c:374
+#: ../src/vnr-properties-dialog.c:375 ../src/vnr-properties-dialog.c:376
+#: ../src/vnr-properties-dialog.c:377 ../src/vnr-properties-dialog.c:378
+msgid "None"
+msgstr "Ingen"
+
+#: ../src/vnr-window.c:297
+#, c-format
+msgid "Use \"%s\" to open the selected image"
+msgstr "Brug »%s« til at åbne det valgte billede"
+
+#: ../src/vnr-window.c:467
+msgid "Show next image after: "
+msgstr "Vis næste billede efter: "
+
+#: ../src/vnr-window.c:485 ../src/vnr-window.c:902
+msgid " second"
+msgid_plural " seconds"
+msgstr[0] " sekund"
+msgstr[1] " sekunder"
+
+#: ../src/vnr-window.c:727 ../src/vnr-window.c:790
+msgid "Not enough virtual memory."
+msgstr "Ikke nok virtuel hukommelse."
+
+#: ../src/vnr-window.c:761 ../src/vnr-window.c:819 ../src/vnr-window.c:1706
+msgid ""
+"Image modifications cannot be saved.\n"
+"Writing in this format is not supported."
+msgstr ""
+"Billedændringer kan ikke gemmes.\n"
+"Skrivning i dette format er ikke understøttet."
+
+#: ../src/vnr-window.c:768 ../src/vnr-window.c:826 ../src/vnr-window.c:1713
+msgid ""
+"Save modifications?\n"
+"This will overwrite the image and may reduce its quality!"
+msgstr ""
+"Gem ændringer?\n"
+"Dette vil overskrive billedet og kan reducere kvaliteten!"
+
+#: ../src/vnr-window.c:1271
+msgid "Open Image"
+msgstr "Åbn billede"
+
+#: ../src/vnr-window.c:1282
+msgid "All Images"
+msgstr "Alle billeder"
+
+#: ../src/vnr-window.c:1288
+msgid "All Files"
+msgstr "Alle filer"
+
+#: ../src/vnr-window.c:1318
+msgid "Open Folder"
+msgstr "Åbn mappe"
+
+#: ../src/vnr-window.c:1378
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Joe Hansen https://launchpad.net/~joedalton2\n"
+"  Rasmus Andersen https://launchpad.net/~rkan67\n"
+"  Siyan Panayotov https://launchpad.net/~xsisqox"
+
+#: ../src/vnr-window.c:1558
+msgid "If you delete an item, it will be permanently lost."
+msgstr "Hvis du sletter et objekt, vil det være permanent tabt."
+
+#. I18N: The '%s' is replaced with the name of the file to be deleted.
+#: ../src/vnr-window.c:1561
+#, c-format
+msgid ""
+"Are you sure you want to\n"
+"permanently delete \"%s\"?"
+msgstr ""
+"Er du sikker på, at du vil\n"
+"slette »%s« permanent?"
+
+#: ../src/vnr-window.c:1721
+msgid "_File"
+msgstr "_Fil"
+
+#: ../src/vnr-window.c:1722
+msgid "_Edit"
+msgstr "_Rediger"
+
+#: ../src/vnr-window.c:1723
+msgid "_View"
+msgstr "_Vis"
+
+#: ../src/vnr-window.c:1724
+msgid "_Image"
+msgstr "_Billede"
+
+#: ../src/vnr-window.c:1725
+msgid "_Go"
+msgstr "_Start"
+
+#: ../src/vnr-window.c:1726
+msgid "_Help"
+msgstr "_Hjælp"
+
+#: ../src/vnr-window.c:1728
+msgid "Open _Image..."
+msgstr "Åbn _billede ..."
+
+#: ../src/vnr-window.c:1729
+msgid "Open an Image"
+msgstr "Åbn et billede"
+
+#: ../src/vnr-window.c:1731
+msgid "Open _Folder..."
+msgstr "Åbn _mappe ..."
+
+#: ../src/vnr-window.c:1732
+msgid "Open a Folder"
+msgstr "Åbn en mappe"
+
+#: ../src/vnr-window.c:1734
+msgid "_Close"
+msgstr "_Luk"
+
+#: ../src/vnr-window.c:1735
+msgid "Close window"
+msgstr "Luk vinduet"
+
+#: ../src/vnr-window.c:1737
+msgid "_About"
+msgstr "_Om"
+
+#: ../src/vnr-window.c:1738
+msgid "About this application"
+msgstr "Om dette program"
+
+#: ../src/vnr-window.c:1740
+msgid "_Preferences..."
+msgstr "_Indstillinger ..."
+
+#: ../src/vnr-window.c:1741
+msgid "User preferences for Viewnior"
+msgstr "Brugerindstillinger for Viewnior"
+
+#: ../src/vnr-window.c:1746
+msgid "_Save"
+msgstr "_Gem"
+
+#: ../src/vnr-window.c:1747
+msgid "Save changes"
+msgstr "Gem ændringer"
+
+#: ../src/vnr-window.c:1752
+msgid "_Properties"
+msgstr "_Egenskaber"
+
+#: ../src/vnr-window.c:1753
+msgid "Properties"
+msgstr "Egenskaber"
+
+#: ../src/vnr-window.c:1758
+msgid "Set as _Wallpaper"
+msgstr "Brug som _baggrundsbillede"
+
+#: ../src/vnr-window.c:1759
+msgid "Set the selected image as the desktop background"
+msgstr "Gør det valgte billede til skrivebordsbaggrund"
+
+#: ../src/vnr-window.c:1764
+msgid "Open _With"
+msgstr "Åbn _med"
+
+#: ../src/vnr-window.c:1765
+msgid "Open the selected image with a different application"
+msgstr "Åbn det valgte billede med et andet program"
+
+#: ../src/vnr-window.c:1767 ../src/vnr-window.c:1776
+msgid "_Delete"
+msgstr "_Slet"
+
+#: ../src/vnr-window.c:1768 ../src/vnr-window.c:1777
+msgid "Delete the current file"
+msgstr "Slet den nuværende fil"
+
+#: ../src/vnr-window.c:1770
+msgid "_Properties..."
+msgstr "_Egenskaber ..."
+
+#: ../src/vnr-window.c:1771
+msgid "Show information about the current file"
+msgstr "Vis oplysninger om den aktuelle fil"
+
+#: ../src/vnr-window.c:1773
+msgid "_Reload"
+msgstr "_Genindlæs"
+
+#: ../src/vnr-window.c:1774
+msgid "Reload the current file"
+msgstr "Genindlæs den nuværende fil"
+
+#: ../src/vnr-window.c:1779 ../src/vnr-window.c:1791 ../src/vnr-window.c:1794
+msgid "_Zoom In"
+msgstr "_Zoom Ind"
+
+#: ../src/vnr-window.c:1780
+msgid "Enlarge the image"
+msgstr "Forstør billedet"
+
+#: ../src/vnr-window.c:1782 ../src/vnr-window.c:1797
+msgid "Zoom _Out"
+msgstr "Zoom _ud"
+
+#: ../src/vnr-window.c:1783 ../src/vnr-window.c:1792 ../src/vnr-window.c:1795
+#: ../src/vnr-window.c:1798
+msgid "Shrink the image"
+msgstr "Formindsk billedet"
+
+#: ../src/vnr-window.c:1785
+msgid "_Normal Size"
+msgstr "_Normal størrelse"
+
+#: ../src/vnr-window.c:1786
+msgid "Show the image at its normal size"
+msgstr "Vis billedet i sin normale størrelse"
+
+#: ../src/vnr-window.c:1788
+msgid "Best _Fit"
+msgstr "_Tilpas"
+
+#: ../src/vnr-window.c:1789
+msgid "Fit the image to the window"
+msgstr "Tilpas billedet til vinduet"
+
+#: ../src/vnr-window.c:1803
+msgid "Rotate _Clockwise"
+msgstr "Roter _med uret"
+
+#: ../src/vnr-window.c:1804
+msgid "Rotate image clockwise"
+msgstr "Roter billedet med uret"
+
+#: ../src/vnr-window.c:1806
+msgid "Rotate _Anti-clockwise"
+msgstr "Roter m_od uret"
+
+#: ../src/vnr-window.c:1807
+msgid "Rotate image anti-clockwise"
+msgstr "Roter billedet mod uret"
+
+#: ../src/vnr-window.c:1809
+msgid "Flip _Vertical"
+msgstr "Vend _lodret"
+
+#: ../src/vnr-window.c:1810
+msgid "Flip image vertically"
+msgstr "Vend billedet lodret"
+
+#: ../src/vnr-window.c:1812
+msgid "Flip _Horizontal"
+msgstr "Vend _vandret"
+
+#: ../src/vnr-window.c:1813
+msgid "Flip image horizontally"
+msgstr "Vend billedet vandret"
+
+#: ../src/vnr-window.c:1815
+msgid "Crop..."
+msgstr "Beskær ..."
+
+#: ../src/vnr-window.c:1821
+msgid "Full _Screen"
+msgstr "Fuld_skærm"
+
+#: ../src/vnr-window.c:1822
+msgid "Show in fullscreen mode"
+msgstr "Vis i fuld skærm"
+
+#: ../src/vnr-window.c:1824
+msgid "_Adjust window size"
+msgstr "_Juster vinduesstørrelse"
+
+#: ../src/vnr-window.c:1825
+msgid "Adjust window size to fit the image"
+msgstr "Juster vinduestørrelse, så det passer til billedet"
+
+#: ../src/vnr-window.c:1830
+msgid "Menu Bar"
+msgstr "Menulinje"
+
+#: ../src/vnr-window.c:1831
+msgid "Show Menu Bar"
+msgstr "Vis menulinje"
+
+#: ../src/vnr-window.c:1833
+msgid "Toolbar"
+msgstr "Værktøjslinje"
+
+#: ../src/vnr-window.c:1834
+msgid "Show Toolbar"
+msgstr "Vis værktøjslinje"
+
+#: ../src/vnr-window.c:1839
+msgid "Sli_deshow"
+msgstr "_Diasshow"
+
+#: ../src/vnr-window.c:1840
+msgid "Show in slideshow mode"
+msgstr "Vis i diasshow-tilstand"
+
+#: ../src/vnr-window.c:1845
+msgid "_Previous Image"
+msgstr "_Forrige billede"
+
+#: ../src/vnr-window.c:1846
+msgid "Go to the previous image of the collection"
+msgstr "Gå til det forrige billede i samlingen"
+
+#: ../src/vnr-window.c:1848
+msgid "_Next Image"
+msgstr "_Næste billede"
+
+#: ../src/vnr-window.c:1849
+msgid "Go to the next image of the collection"
+msgstr "Gå til det næste billede i samlingen"
+
+#: ../src/vnr-window.c:1851
+msgid "_First Image"
+msgstr "_Første billede"
+
+#: ../src/vnr-window.c:1852
+msgid "Go to the first image of the collection"
+msgstr "Gå til det første billede i samlingen"
+
+#: ../src/vnr-window.c:1854
+msgid "_Last Image"
+msgstr "_Sidste billede"
+
+#: ../src/vnr-window.c:1855
+msgid "Go to the last image of the collection"
+msgstr "Gå til det sidste billede i samlingen"
+
+#: ../src/uni-exiv2.hpp:49
+msgid "Camera make"
+msgstr "Kameramærke"
+
+#: ../src/uni-exiv2.hpp:50
+msgid "Camera model"
+msgstr "Kameramodel"
+
+#: ../src/uni-exiv2.hpp:51
+msgid "Date Taken"
+msgstr "Dato taget"
+
+#: ../src/uni-exiv2.hpp:52
+msgid "Exposure time"
+msgstr "Belysningstid"
+
+#: ../src/uni-exiv2.hpp:53
+msgid "Exposure mode"
+msgstr "Belysningstilstand"
+
+#: ../src/uni-exiv2.hpp:54
+msgid "Aperture Value"
+msgstr "Blændetal"
+
+#: ../src/uni-exiv2.hpp:55
+msgid "ISO speed"
+msgstr "ISO-hastighed"
+
+#: ../src/uni-exiv2.hpp:56
+msgid "Flash"
+msgstr "Blitz"
+
+#: ../src/uni-exiv2.hpp:57
+msgid "Metering mode"
+msgstr "Måletilstand"
+
+#: ../src/uni-exiv2.hpp:58
+msgid "Focal length"
+msgstr "Brændvidde"
+
+#: ../src/uni-exiv2.hpp:59
+msgid "Software"
+msgstr "Program"
+
+#: ../src/uni-exiv2.hpp:63
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: ../src/uni-exiv2.hpp:64
+msgid "Copyright"
+msgstr "Ophavsret"
+
+#: ../src/uni-exiv2.hpp:65
+msgid "Author"
+msgstr "Forfatter"
