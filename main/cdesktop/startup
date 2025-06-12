@@ -1,6 +1,0 @@
-#!/bin/sh
-~/.config/cdesktop/cdesktop-wallpaper &
-spacefm --desktop &
-volumeicon &
-nm-applet
-

@@ -9,8 +9,6 @@ license="MIT"
 depends="sudo fltk iproute2 wireless-tools wpa_supplicant dhcpcd"
 makedepends="build-base pkgconf musl-dev fltk-dev g++"
 source="cnetwork.desktop main.cpp"
-options="!strip !check"
-
 sha512sums="
 e7233164a7be69c461c2c6ea4b18116e0fee48487ea59a64cfcbedf3a2888abeb2847f25289e44a6f9d365a43683e1cd8c23e9a3ff4e055dcc2801a43ee21a0b  cnetwork.desktop
 85656c6e4c0d42c84debc4996222147d3c445aa1fca0451e38e8e8ccc382b9ce72e457d62c9627b49863aaaf4d21046b6ed3abb12a5b8b00375d3ed936e63547  main.cpp

@@ -1,5 +1,5 @@
 #!/bin/sh
 sh ~/.config/cdesktop/cdesktop-wallpaper &
 spacefm --desktop &
-pasystray &
+volumeicon &
 tint2

@@ -1,1 +1,0 @@
-i18n.gettext('viewnior', preset: 'glib')

@@ -1,8 +1,0 @@
-* ctl element selection for the minimixer (master,line, etc.)
-* volume/switch preset safe/restore (on startup)
-* Option to enable/disable slider animations
-* Option for desktop autostart (another .desktop file for autostart?)
-* sliders/switches grouping
-* volume meters
-* K system styled sliders/meters
-* USB plug in/out detection
