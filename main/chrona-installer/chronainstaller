@@ -265,20 +265,6 @@ if ! is_kvm_clock && [ "$rc_sys" != "LXC" ] && [ "$quick" != 1 ]; then
 	setup-ntp ${NTPOPTS}
 fi
 
-echo
-echo
-print_heading2 "Network Check"
-print_heading2 "-------------"
-if ping -c1 -W1 8.8.8.8 >/dev/null 2>&1; then
-    echo "Network detected, configuring APK mirror…"
-    
-    echo
-    print_heading2 "APK Mirror"
-    print_heading2 "----------"
-    capkrepos ${APKREPOSOPTS}
-else
-    echo "Warning: No network detected, skipping APK mirror setup."
-fi
 if [ "$rc_sys" != LXC ] && [ -n "$DEVDOPTS" -a "$DEVDOPTS" != mdev ]; then
 	setup-devd ${DEVDOPTS}
 fi
